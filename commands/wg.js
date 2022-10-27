@@ -20,10 +20,13 @@ module.exports = {
       const val = doc.evaluate(xpath, doc, null, 0, null);
       let plist = val.iterateNext();
       tosend = '';
+      let x = 0;
   
       while (plist) {
+        x++;
         console.log(`${plist.textContent.trim().replace(/\n/g, '')} ==> https://stats.warbrokers.io${plist}`);
-        tosend += `${plist.textContent.trim().replace(/\n/g, '')} ==> https://stats.warbrokers.io${plist} \n`
+        tosend += x.toString().padStart(3,' ',x.toString()) + ' ' + plist.textContent.trim().replace(/\n/g, '').padEnd(20,'.') 
+        + 'https://stats.warbrokers.io' + plist + '\n';
         plist = val.iterateNext();
       }
   
