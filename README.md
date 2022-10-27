@@ -1,3 +1,21 @@
-msfish
+# msfish
 
-replcase wbstatbot with a discord bot
+## overview 
+replace the Wbstatbot with a discord bot
+
+## functions
+
+- gather the list of current squad members
+- get a snapshot of each of the member's stats
+- display a list of medals for a given day
+- display charts
+
+## stack
+
+- Node
+- Eslint
+- Discord.js
+- Grammarly Code OSS extension
+- Axios
+- Sqlite
+
