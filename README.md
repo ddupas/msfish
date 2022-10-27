@@ -10,7 +10,8 @@ replace the Wbstatbot with a discord bot
 - display current list in db
 - get a snapshot of each of the member's stats
 - display a list of medals for a given day
-- display charts
+- display charts 
+- export csvs
 
 ## stack
 
