@@ -17,7 +17,7 @@ replace the Wbstatbot with a discord bot
 - Node
 - Eslint
 - Discord.js
-- Grammarly Code OSS extension
+- Grammarly Code OSS ext  ension
 - Axios
 - Sqlite
 
