@@ -19,17 +19,62 @@ module.exports = {
   
       const val = doc.evaluate(xpath, doc, null, 0, null);
       let plist = val.iterateNext();
-      tosend = 'INSERT INTO "players"("id","name","snapfreq","lastsnap","discord","status") VALUES (\'1\',\'\',\'6\',NULL,NULL,NULL);';
-      let x = 0;
-  
-      while (plist) {
-        x++;
-        console.log(`${plist.textContent.trim().replace(/\n/g, '')} ==> https://stats.warbrokers.io${plist}`);
-        tosend += x.toString().padStart(3,' ',x.toString()) + ' ' + plist.textContent.trim().replace(/\n/g, '').padEnd(20,'.') 
-        + 'https://stats.warbrokers.io' + plist + '\n';
-        plist = val.iterateNext();
-      }
-  
+
+      const sqlite3 = require('sqlite3').verbose();
+
+      // open the database
+      let db = new sqlite3.Database('./msfish.db', sqlite3.OPEN_READWRITE, (err) => {
+          if (err) {
+              console.error(err.message);
+          }
+          console.log('Connected to msfish database.');
+      });
+      
+      console.log('000000');
+      db.serialize(() => {
+
+        const stmt = db.prepare(
+            `INSERT INTO players (id,name,snapfreq,lastsnap,discord,status) 
+            VALUES (?,?,?,?,?,?) 
+            ON CONFLICT(id) DO UPDATE SET
+              name = excluded.name,
+              snapfreq = excluded.snapfreq,
+              lastsnap = excluded.lastsnap,
+              discord = excluded.discord,
+              status = excluded.status;`);
+    console.log('000001');
+              while (plist) {
+                console.log('000002');
+                const id = plist.toString().split('/').slice(-1)[0];
+                const name = plist.textContent.trim().replace(/\n/g, '');
+                stmt.run(id,name,'6', 'now', '432#234', 'active');
+                plist = val.iterateNext();
+              }
+          
+              console.log('000003');
+        
+        stmt.finalize();
+    
+        db.each(`SELECT * FROM players`, (err, row) => {
+            if (err) {
+                console.error(err.message);
+            }
+            console.log(row.id + "\t" + row.name);
+        });
+    });
+    
+
+
+     
+      db.close((err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Close the database connection.');
+    });
+
+
+
     })
     .catch(function (error) {
       // handle error

@@ -13,7 +13,10 @@
     "eslint": "^8.26.0"
   },
   "scripts": {
-    "test": "node index.js"
+    "deploy-commands" : "node deploy-commands.js",
+    "test-axios-jsdom": "node test-axios-jsdom.js",
+    "test-sqlite" : "node test-sqlite.js",
+    "msfish" : "node index.js"
   },
   "repository": {
     "type": "git",
