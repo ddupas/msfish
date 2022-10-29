@@ -3,6 +3,7 @@
     "axios": "^1.1.3",
     "discord.js": "^14.6.0",
     "jsdom": "^20.0.1",
+    "node-sqlite3": "github:a-was/node-sqlite3",
     "sqlite3": "^5.1.2"
   },
   "name": "msfish",
@@ -13,10 +14,10 @@
     "eslint": "^8.26.0"
   },
   "scripts": {
-    "deploy-commands" : "node deploy-commands.js",
+    "deploy-commands": "node deploy-commands.js",
     "test-axios-jsdom": "node test-axios-jsdom.js",
-    "test-sqlite" : "node test-sqlite.js",
-    "msfish" : "node index.js"
+    "test-sqlite": "node test-sqlite.js",
+    "msfish": "node index.js"
   },
   "repository": {
     "type": "git",
