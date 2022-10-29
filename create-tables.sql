@@ -20,3 +20,18 @@ INSERT INTO players (id,name,snapfreq,lastsnap,discord,status)
 	 discord = excluded.discord,
 	 status = excluded.status;
 	
+CREATE TABLE "snapshots" (
+"pid"	TEXT,
+"date"	TEXT,
+"Name"	TEXT,
+"Kills"	TEXT,
+"Deaths"	TEXT,
+"wk"	TEXT,
+"vk"	TEXT,
+"dd"	TEXT,
+"xp"	TEXT,
+"hs"	TEXT,
+"brw"	TEXT,
+"cmw"	TEXT,
+"Medals" TEXT
+);

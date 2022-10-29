@@ -6,7 +6,7 @@ let tosend = 'error';
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('udb')
-		.setDescription('Update Database - Add / update players into db using web get \n Use this to add players or update a name change. Does not remove players.'),
+		.setDescription('Update the current list from wb.io to the Msfish database. Does not remove players.'),
 	async execute(interaction) {
 		// download web page
     axios.get('https://stats.warbrokers.io/squads/FISH')
