@@ -85,7 +85,7 @@ module.exports = {
       //const channel = client.channels.getAll("name", "mining-and-stats");
       
       //await channel.send('hi ' + tosend);
-      await interaction.channel.send("```txt\n player update complete  \n```");
+      await interaction.channel.send("```txt\n player update complete. Use /gp to get player list. \n```");
     });
 
 		await interaction.reply(`...`);

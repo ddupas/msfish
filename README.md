@@ -6,10 +6,11 @@ replace the Wbstatbot with a discord bot
 ## functions
 
 - [x] gather the list of current squad members from wb.io
-- [ ] update current list into db
-- [ ] display current list in db
+- [x] update current list into db
+- [x] display current list in db
 - [ ] get a snapshot of each of the member's stats
 - [ ] display a list of medals for a given day
+- [ ] version release move to war fish server
 - [ ] display charts 
 - [ ] export csvs
 
