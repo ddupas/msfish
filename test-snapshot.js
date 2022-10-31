@@ -91,18 +91,48 @@ async function showparsed(snap) {
 }
 
 async function addtodb(snap) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         //console.log(JSON.stringify(snap));
+        const db = new SQLite3('msfish.db');  // or file.sqlite3
+        await db.open();
+
+        let istmt_fields = 'INSERT INTO snapshots (';
+        let istmt_values = 'VALUES (';
+        
+        Object.keys(snap).forEach(function(key) {
+            // console.log('Key : ' + key + ', Value : ' + snap[key])
+            if (key !== 'page') {
+                istmt_fields += key + ',';
+                istmt_values += `"${snap[key]}",`;
+            }        
+          });
+
+        const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
+        var runres = await db.run(stmt);
         resolve(snap);
     });
 }
 
+async function getpids(pids) {
+    return new Promise(async (resolve, reject) => {
+        const db = new SQLite3('msfish.db');  // or file.sqlite3
+        await db.open();
+        const select_stmt = `select id from players;`
+        var select_res = await db.all(select_stmt);
+        select_res.forEach((r) => pids.push(r.id) );
+        resolve(pids);
+    });
+}
 
-let pids = ['5a4d14e9bfea71227e1fc4bf','5f2f9ee9bfea71685aa1e3f2'] ;
+getpids([]).then ( pids => {
+    pids.forEach(pid => getpage({pid})
+    .then(snap => parsepage(snap))
+    .then(snap => showparsed(snap))
+    .then(snap => addtodb(snap)))
+});
 
-pids.forEach(pid => getpage({pid}).then(snap => parsepage(snap))
-.then(snap => showparsed(snap))
-.then(snap => addtodb(snap)));
+// let pids = ['5a4d14e9bfea71227e1fc4bf','5f2f9ee9bfea71685aa1e3f2'] ;
+
 
 
 
