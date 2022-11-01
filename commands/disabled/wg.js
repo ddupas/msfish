@@ -6,7 +6,7 @@ let tosend = 'error';
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('wg')
-		.setDescription('Web Get - Display the current list of members on stats.warbrokers.io'),
+		.setDescription('xxx delete this whole file Web Get - Display the current list of members on stats.warbrokers.io'),
 	async execute(interaction) {
 		// download web page
     axios.get('https://stats.warbrokers.io/squads/FISH')

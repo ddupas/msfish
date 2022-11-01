@@ -39,7 +39,7 @@ module.exports = {
 		.setName('gp')
 		.setDescription('Get players from db'),
 	async execute(interaction) {
-		await interaction.reply('---');
+		await interaction.reply('---'); // random emoji
         await dosend(interaction);    
 	},
 };
