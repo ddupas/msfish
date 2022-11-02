@@ -18,7 +18,7 @@ async function dosend (interact) {
     tosend = '```txt\n';
     rows.forEach(row => {
         if (row.Medals !== '') {
-            tosend += `${row.Name}\n${row.Medals}\n`;
+            tosend += `${row.Name}\n${row.Medals}\n\`\`\``;
         } 
         
     })
