@@ -5,6 +5,6 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		await interaction.reply(':fish_emblem:');
+		await interaction.reply('<:fish_emblem:616711141070077983>');
 	},
 };

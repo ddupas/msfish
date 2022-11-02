@@ -35,7 +35,7 @@ module.exports = {
 		.setName('gp')
 		.setDescription('Get players from db'),
 	async execute(interaction) {
-		await interaction.reply(ri('WarFish')); 
+		await interaction.reply('‎ ' + ri(' WarFish ')); 
         await dosend(interaction);    
 	},
 };

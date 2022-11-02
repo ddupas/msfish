@@ -18,7 +18,7 @@ async function dosend (interact) {
     tosend = '```txt\n';
     rows.forEach(row => {
         if (row.Medals !== '') {
-            tosend += `${row.Name}\n${row.Medals}\n\`\`\``;
+            tosend += `${row.Name}\n${row.Medals}\n`;
         } 
         
     })
@@ -38,7 +38,7 @@ module.exports = {
 		.setName('m')
 		.setDescription('Metallurgy - Display daily medals'),
 	async execute(interaction) {
-		await interaction.reply(`:fish_emblem: ‎ ${ri('WarFish')}` ); 
+		await interaction.reply('‎ ' +` ${ri('Daily Medals')}` ); 
         await dosend(interaction);    
 	},
 };
