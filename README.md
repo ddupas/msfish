@@ -11,8 +11,9 @@ replace the Wbstatbot with a discord bot
 - [x] get a snapshot of each of the member's stats
 - [ ] display last snapshot for a member
 - [ ] set members discord id
-- [ ] display list of medals for a single member
+- [ ] last N - display kills last N days, kd change, brw, cw
 - [x] display a list of most recent medals for all members
+- [ ] get medal details from hover pop up
 - [x] cron job for snapshots https://crontab.guru/#56_7,11,15,19,23_*_*_*
 - [x] version release move to war fish server
 - [ ] display charts 
