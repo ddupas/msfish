@@ -12,9 +12,9 @@ replace the Wbstatbot with a discord bot
 - [ ] display last snapshot for a member
 - [ ] set members discord id
 - [ ] display list of medals for a single member
-- [ ] display a list of most recent medals for all members
-- [ ] cron job for snapshots
-- [ ] version release move to war fish server
+- [x] display a list of most recent medals for all members
+- [x] cron job for snapshots https://crontab.guru/#56_7,11,15,19,23_*_*_*
+- [x] version release move to war fish server
 - [ ] display charts 
 - [ ] export to Csv
 
