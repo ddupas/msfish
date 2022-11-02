@@ -66,12 +66,16 @@ async function parsepage(snap) {
             snap[xpath] = trimfixnode(val);
         }
         // daily medals section   
-        let dailys_xp = "//*[@class='player-details-daily-circle-container']";
-        let dailys_node = doc.evaluate(dailys_xp, doc, null, 0, null);
+        const xpathfor_dailys_xp = "//*[@class='player-details-daily-circle-container']";
+
+        const xpathfor_value = "./span/div/*/[figure out index]"
+
+        let dailys_node = doc.evaluate(xpathfor_dailys_xp, doc, null, 0, null);
         let node = dailys_node.iterateNext();
         while (node) {
             // place, category
             medalstext += node.children[0].textContent + ' ' + node.children[1].children[0].textContent + '\n';
+            
             node = dailys_node.iterateNext();
         }
         snap["Medals"] = medalstext;
