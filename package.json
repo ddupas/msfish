@@ -19,7 +19,8 @@
     "test-axios-jsdom": "node test-axios-jsdom.js",
     "test-sqlite": "node test-sqlite.js",
 
-    "test-snapshotall": "node test-snapshotall.js",
+    "test-snapshotall": "node test-snapshotall.js", 
+    "test-updateplayers": "node test-updateplayers.js",
     
     "test-cron": "node test-cron.js",
     "msfish": "node index.js"

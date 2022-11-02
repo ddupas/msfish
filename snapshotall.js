@@ -93,7 +93,6 @@ async function addtodb(snap) {
         //console.log(JSON.stringify(snap));
         const db = new SQLite3('msfish.db');  // or file.sqlite3
         await db.open();
-
         let istmt_fields = 'INSERT INTO snapshots (';
         let istmt_values = 'VALUES (';
 
@@ -104,7 +103,6 @@ async function addtodb(snap) {
                 istmt_values += `"${snap[key]}",`;
             }
         });
-
         const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
         var runres = await db.run(stmt);
         resolve(snap);

@@ -4,20 +4,23 @@ const { JSDOM } = require('jsdom');
 const SQLite3 = require('node-sqlite3');
 const { ri, re } = require('../emoji');
 
+const selectstmt =
+    `SELECT MAX(date), Name, Medals
+    FROM snapshots
+    GROUP BY pid`
+
 const db = new SQLite3('msfish.db')
 
 async function dosend (interact) {
     let tosend = '';
     await db.open();
-    var rows = await db.all("SELECT * FROM players");
-    x = 0;
-    tosend = '```html\n';
+    var rows = await db.all(selectstmt);
+    tosend = '```txt\n';
     rows.forEach(row => {
-        console.log(row.id, row.name)
-        x++
-        xstr = x.toString().padStart(3,' ');
-        tosend += 
-            `${xstr} ${row.name}\nhttps://stats.warbrokers.io/players/i/${row.id}\n`
+        if (row.Medals !== '') {
+            tosend += `${row.Name}\n${row.Medals}\n`;
+        } 
+        
     })
 /*
     await db.each("SELECT * FROM users", [], function(row) {
@@ -32,10 +35,10 @@ async function dosend (interact) {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('gp')
-		.setDescription('Get players from db'),
+		.setName('m')
+		.setDescription('Metallurgy - Display daily medals'),
 	async execute(interaction) {
-		await interaction.reply(ri('WarFish')); 
+		await interaction.reply(`:fish_emblem: ‎ ${ri('WarFish')}` ); 
         await dosend(interaction);    
 	},
 };
