@@ -1,6 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const axios = require('axios');
-const { JSDOM } = require('jsdom');
 const SQLite3 = require('node-sqlite3');
 const { ri, re } = require('../emoji');
 
@@ -19,17 +17,9 @@ async function dosend (interact) {
     rows.forEach(row => {
         if (row.Medals !== '') {
             tosend += `${row.Name}\n${row.Medals}\n`;
-        } 
-        
+        }       
     })
-/*
-    await db.each("SELECT * FROM users", [], function(row) {
-        console.log(row);
-        tosend += row.id;
-    })
-*/
     await db.close()
-
     interact.channel.send(`${tosend}\n\`\`\`\n`);
 }
 

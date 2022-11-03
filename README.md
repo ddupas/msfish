@@ -18,12 +18,11 @@ replace the Wbstatbot with a discord bot
 - [ ] cron job for snapshots added  https://crontab.guru/#56_7,11,15,19,23_*_*_*
 - [ ] run as service on termux
 - [ ] display charts ideas: 
-    - return an html file as attchment
-    - post data to a jsfiddle and return link
-    - vpn tunnel into server and link to webpage
+    - return in embed as image,svg,html
+    -    both these
     - get a real server to host webpage
         - that server is not a discord bot but just gets db updates pushed to it
-        - updates could be a series of sql inserts to mirror the same ones or it could be a whole db, if it - 
+        - updates could be a series of sql inserts to mirror the same ones or it could be a whole db
         - maybe there is a sqlite rsync package
 
 
