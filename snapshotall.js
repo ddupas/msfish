@@ -80,6 +80,7 @@ async function parsepage(snap) {
         }
         snap["Medals"] = medalstext;
         snap["date"] = Date.now();
+        snap["Name"] = snap["Name"].replace('[FISH] ','');
         snap.page = "🤡";
         resolve(snap);
     });
