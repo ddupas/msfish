@@ -1,25 +1,18 @@
-// last snapshot for each player with times
-
-// parameter - since active - only show the players active in the
-// last amount of days, ie 1, would show which players played in the
-// last day, or 7 in the last week
-
-// last 7 : show stats for who has changed in last 7 days
 const { SlashCommandBuilder } = require('discord.js');
 const SQLite3 = require('node-sqlite3');
 const { ri, re } = require('../emoji');
-
-
-
+//const { snapshotall } = require('../snapshotall');
 const db = new SQLite3('msfish.db')
 
 async function dosend (interact) {
+   // await snapshotall();
     let days = interact.options.getNumber('days');
     if (!days) {
         days = '1.0';
     }
     const selectstmt =
-    `SELECT name, rkills-kills as kills , rdeaths - deaths as deaths, printf("%.2f", (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
+    `SELECT name, rkills-kills as kills , rdeaths - deaths as deaths, 
+    printf("%.2f", (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
     rcmw - cmw as cmw , rbrw - brw as brw
      FROM
     (SELECT pid, max(date) As recentdate
