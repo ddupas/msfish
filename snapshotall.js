@@ -129,7 +129,7 @@ async function snapshotall() {
     getpids([]).then(pids => {
         pids.forEach(pid => getpage({ pid })
             .then(snap => parsepage(snap))
-            .then(snap => showparsed(snap))
+        //    .then(snap => showparsed(snap))
             .then(snap => addtodb(snap)))
     });
 }

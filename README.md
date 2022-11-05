@@ -28,12 +28,9 @@ replace the Wbstatbot with a discord bot
 		- once update active is running could lower
 - [ ] run as service on termux
 - [ ] display charts ideas: 
-    - return in embed as image,svg,html
-    -    both these
-    - get a real server to host webpage
-        - that server is not a discord bot but just gets db updates pushed to it
-        - updates could be a series of sql inserts to mirror the same ones or it could be a whole db
-        - maybe there is a sqlite rsync package
+	- https://sql.js.org/#/?id=loading-a-database-from-a-server, from a static webpage in github repo
+    - git push after updates
+	
 
 
 - [ ] export to Csv
