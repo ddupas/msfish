@@ -3,6 +3,9 @@
 ## overview 
 replace the Wbstatbot with a discord bot
 
+## charts
+https://ddupas.github.io/msfish/
+
 ## dev-log
 
 - [x] gather the list of current squad members from wb.io
