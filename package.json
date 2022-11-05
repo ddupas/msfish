@@ -21,7 +21,7 @@
 
     "test-snapshotall": "node test-snapshotall.js", 
     "test-updateplayers": "node test-updateplayers.js",
-    
+     "test-gitpushdb" : "node test-gitpushdb.js",
     "test-cron": "node test-cron.js",
     "msfish": "node index.js"
   },

@@ -42,5 +42,7 @@ replace the Wbstatbot with a discord bot
 - Discord.js
 - Grammarly Code OSS ext  ension
 - Axios
+- jsdom
+- git / github
 - Sqlite
 
