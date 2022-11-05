@@ -5,6 +5,7 @@
     "jsdom": "^20.0.1",
     "node-schedule": "^2.1.0",
     "node-sqlite3": "github:a-was/node-sqlite3",
+    "sql.js": "^1.8.0",
     "sqlite3": "^5.1.2"
   },
   "name": "msfish",
@@ -18,10 +19,9 @@
     "deploy-commands": "node deploy-commands.js",
     "test-axios-jsdom": "node test-axios-jsdom.js",
     "test-sqlite": "node test-sqlite.js",
-
-    "test-snapshotall": "node test-snapshotall.js", 
+    "test-snapshotall": "node test-snapshotall.js",
     "test-updateplayers": "node test-updateplayers.js",
-     "test-gitpushdb" : "node test-gitpushdb.js",
+    "test-gitpushdb": "node test-gitpushdb.js",
     "test-cron": "node test-cron.js",
     "msfish": "node index.js"
   },
