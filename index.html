@@ -23,17 +23,14 @@ xxx
     integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg==" 
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    const initSqlJs = window.initSqlJs;
-
-    const SQL = initSqlJs({
+    window.addEventListener('load',  async function () {
+  alert("It's loaded!");
+  const SQL = await initSqlJs({
   // Required to load the wasm binary asynchronously. Of course, you can host it wherever you want
   // You can omit locateFile completely when running in node
   locateFile: file => `https://sql.js.org/dist/${file}`
 });
 const db = new SQL.Database();
-// NOTE: You can also use new SQL.Database(data) where
-// data is an Uint8Array representing an SQLite database file
-
 
 // Execute a single SQL string that contains multiple statements
 let sqlstr = "CREATE TABLE hello (a int, b char); \
@@ -100,6 +97,12 @@ db.exec("SELECT json_agg(column1) FROM (VALUES ('hello'), ('world'))");
 
 // Export the database to an Uint8Array containing the SQLite database file
 const binaryArray = db.export();
+});
+    
+// NOTE: You can also use new SQL.Database(data) where
+// data is an Uint8Array representing an SQLite database file
+
+
     
 </script>
   
