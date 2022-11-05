@@ -23,26 +23,33 @@ xxx
     integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg==" 
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    
     window.addEventListener('load',  async function () {
-  alert("It's loaded!");
-
-
-
-
-  const sqlPromise = initSqlJs({
-  locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
-});
-const dataPromise = fetch("./msfish.db").then(res => res.arrayBuffer());
-const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
-window.db = new SQL.Database(new Uint8Array(buf));
-
-
-
-});
-    
-
-    
+        const sqlPromise = initSqlJs({
+            locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+        });
+        const dataPromise = fetch("./msfish.db").then(res => res.arrayBuffer());
+        const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+        window.db = new SQL.Database(new Uint8Array(buf));
+        window.listp();
+    });
+    window.listp = () => {
+        var ele = document.getElementById('playerlist');
+        ele.innerHTML = '<ul>';
+        var sql = "select name from players";
+		var result = '', error = '';
+		try { result = window.db.exec(sql); }
+		catch (e) { error = e; }
+        result[0]['values'].forEach(element => {
+            ele.innerHTML += `<li>${element[0]}</li>`
+        });
+        ele.innerHTML += '</ul>'
+    }
 </script>
+<div id="playerlist"></div>
+
+
+
 
 	<input type='text' id='input' placeholder="ENTER SOME SQL" size='50'
 		value="CREATE TABLE test(val);INSERT INTO test VALUES (666); SELECT * FROM test">
