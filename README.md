@@ -16,7 +16,7 @@ https://ddupas.github.io/msfish/
 - [x] version release move to war fish server
 - [x] last N - display kills last N days, kd change, brw, cmw
 - [x] github keys no password for push
-- [x] git push after updates
+- [x] git push after updates - check diff settings
 - [x] display charts
 - [ ] update active - just update the players that have played in the 
 	  last Xactive-spanX day
@@ -33,30 +33,50 @@ https://ddupas.github.io/msfish/
  	- https://crontab.guru/#56_7,11,15,19,23_*_*_*
 	- once update active is running could lower
 - [ ] run as service on termux
-
-	
-
-
 - [ ] export to Csv
 
-## stack
+## technology stack with explaination 
 
 - Node
+	A javascript runtime on my server at home. It runs a discord bot that
+	interacts with users, but also fetches the data from stats.warbrokers.io
+	and sends the data to a public repository where
 - Eslint
+	A code problem detector, not sure if its working
 - Discord.js
+	Discord bot based on the tutorial almost straight copy. the config.json 
+	file is .gitignored so, the secret keys are not in the repo
 - Grammarly Code OSS ext  ension
+	Fixes spelling mistakes in Code - OSS text editor
 - Axios
+	Could almost eliminate this dependancy since fetch is not hard.
+	this just fetches web pages, a wget for js
 - jsdom
+	A DOM document is a tree representation of a web page in memory
+	made of nodes. Loading a page into JSDOM allows searching using
+	xpath. xpath is a path into a dom just like a directory path leads
+	to a location on your web server.
 - git / github
-- Sqlite
+	Not sure if I am abusing github tos by uploading my database to
+	the development repo, but here we are!!!
+- Sqlite, a-was/node-sql, sql.js
+	Some overlap in functionality with various methods of accessing 
+	sqlite3, simply because I started with barebones, realized needed
+	to promisify it, found that, but then realized i also need an
+	in browser library for client side stuff. had i realized it was
+	all heading toward needing sql.js, i would of started there
+- highcharts.com for the chart
+	still digging into props but sofar its been interesting, should
+	mention this is fairly dependent on moment.js still chewing
+- http-server for testing index.html
+	index.html is the charts page hosted by github using fetch to get
+	db also from github and sql.js to query, however, a live server is
+	needed for testing, this one is better than the one in code-oss
 
 ## history
 
 variations of this bot have been around but
-ultimately failed. Good bye firebase and we
-are now going to ramp this shit up with
-a combination of a discord bot and some
-in browser magic.
+ultimately failed. Good bye firebase.
 
 this bot was created to answer the question
 of who is active and who is winning medals

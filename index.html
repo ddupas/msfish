@@ -37,6 +37,11 @@
                 chartdata2.push([parseInt(element[0]), parseFloat(element[2])]);
             });
 
+            const chartoptions = Highcharts.setOptions({
+                time: {
+                    timezone: 'America/Edmonton'
+                }
+            });
             const chart = Highcharts.chart('killschart', {
                 chart: {
                     type: 'line'
@@ -72,7 +77,15 @@
                     name: 'kd',
                     data: chartdata2
                 }
-                ]
+                ],
+
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                }
             });
         }
         window.listp = () => {
