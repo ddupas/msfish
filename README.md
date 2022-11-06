@@ -14,7 +14,10 @@ https://ddupas.github.io/msfish/
 - [x] get a snapshot of each of the member's stats
 - [x] display a list of most recent medals for all members
 - [x] version release move to war fish server
-- [x] last N - display kills last N days, kd change, brw, cw
+- [x] last N - display kills last N days, kd change, brw, cmw
+- [x] github keys no password for push
+- [x] git push after updates
+- [x] display charts
 - [ ] update active - just update the players that have played in the 
 	  last Xactive-spanX day
 	  - set more freq schedule for update active
@@ -26,13 +29,11 @@ https://ddupas.github.io/msfish/
 - [ ] delete duplicates, if there are 3 snapshots in a row that are identical, delete the middle one
 - [ ] set members discord id
 - [ ] get medal details from hover pop up
-- [ ] cron job for snapshots added  https://crontab.guru/#56_7,11,15,19,23_*_*_*
-		- right now set at 5 times a day, see test-cron
-		- once update active is running could lower
+- [ ] cron job for snapshots
+ 	- https://crontab.guru/#56_7,11,15,19,23_*_*_*
+	- once update active is running could lower
 - [ ] run as service on termux
-- [ ] display charts ideas: 
-	- https://sql.js.org/#/?id=loading-a-database-from-a-server, from a static webpage in github repo
-    - git push after updates
+
 	
 
 
@@ -49,3 +50,14 @@ https://ddupas.github.io/msfish/
 - git / github
 - Sqlite
 
+## history
+
+variations of this bot have been around but
+ultimately failed. Good bye firebase and we
+are now going to ramp this shit up with
+a combination of a discord bot and some
+in browser magic.
+
+this bot was created to answer the question
+of who is active and who is winning medals
+on warbrokers. 
