@@ -50,3 +50,14 @@ https://ddupas.github.io/msfish/
 - git / github
 - Sqlite
 
+## history
+
+variations of this bot have been around but
+ultimately failed. Good bye firebase and we
+are now going to ramp this shit up with
+a combination of a discord bot and some
+in browser magic.
+
+this bot was created to answer the question
+of who is active and who is winning medals
+on warbrokers. 
