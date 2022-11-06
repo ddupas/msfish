@@ -22,6 +22,7 @@ xxx
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js" 
     integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg==" 
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
     
     window.addEventListener('load',  async function () {
@@ -33,26 +34,67 @@ xxx
         window.db = new SQL.Database(new Uint8Array(buf));
         window.listp();
     });
-    window.listp = () => {
-        var ele = document.getElementById('playerlist');
-        ele.innerHTML = '<ul>';
-        var sql = "select name from players";
+    window.showcharts = (id) => {
+        var chartdata = [];
+        var sql = `select date, kills from snapshots where pid="${id}"`;
 		var result = '', error = '';
 		try { result = window.db.exec(sql); }
 		catch (e) { error = e; }
         result[0]['values'].forEach(element => {
-            ele.innerHTML += `<li>${element[0]}</li>`
+            chartdata.push([parseInt(element[0]), parseInt(element[1])]);
+        });
+        
+        const chart = Highcharts.chart('killschart', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Kills'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+            formatter: function() {
+                var dd = new Date(this.value);
+                return dd.toLocaleDateString();
+            }
+    },
+            },
+            yAxis: {
+                title: {
+                    text: 'kills'
+                }
+            },
+            
+            series: [{
+                name: 'kills',
+                data: chartdata
+            }]
+        });
+    }
+    window.listp = () => {
+        var ele = document.getElementById('playerlist');
+        ele.innerHTML = '<ul>';
+        var sql = "select name, id from players";
+		var result = '', error = '';
+		try { result = window.db.exec(sql); }
+		catch (e) { error = e; }
+        result[0]['values'].forEach(element => {
+            ele.innerHTML += `<li onclick=window.showcharts('${element[1]}')>${element[0]}</li>`
         });
         ele.innerHTML += '</ul>'
     }
 </script>
 <div id="playerlist"></div>
+<div id="killschart" style="width:100%; height:400px;"></div>
+<div id="kdchart"></div>
+<div id="winschart"></div>
 
 
 
 
 	<input type='text' id='input' placeholder="ENTER SOME SQL" size='50'
-		value="CREATE TABLE test(val);INSERT INTO test VALUES (666); SELECT * FROM test">
+		value=" SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name">
 	<button id='submit'>Execute</button>
 	<pre id='result'></pre>
 	<pre id='error'></pre>
