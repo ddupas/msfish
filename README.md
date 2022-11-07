@@ -37,13 +37,13 @@ https://ddupas.github.io/msfish/
 
 ## technology stack with explaination 
 
-- Node
+- ### Node
 	A javascript runtime on my server at home. It runs a discord bot that
 	interacts with users, but also fetches the data from stats.warbrokers.io
 	and sends the data to a public repository where
-- Eslint
+- ### Eslint
 	A code problem detector, not sure if its working
-- Discord.js
+- ### Discord.js
 	Discord bot based on the tutorial almost straight copy. the config.json 
 	file is .gitignored so, the secret keys are not in the repo
 - Grammarly Code OSS ext  ension
