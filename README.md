@@ -24,6 +24,59 @@ https://ddupas.github.io/msfish/
 	  - have multiple active-spans to detect currently playing and funnel
 	  - activity bins- active-span - cron freq correlation
 	  - ie all the players ||that have played in the last year should be updated monthly, all the players that have played in the last month should be updated weekly, all the players that week|| should be updated daily, all the players that have played in the last day should be updated every 3 hours, every player that has played in the last 3 hours should be updated hourly, all the players that have played in the last hour should be updated every 15 minutes the end
+
+```js
+function findinterval(gap) {
+
+thirtysec = 1000 * 30
+oneminute = 1000 * 60
+om = oneminute
+oh = om * 60
+od = oh * 24
+
+intervals = [
+	thirtysec,
+	om,
+	5m,
+	15m,
+	oh,
+	3 * oh,
+	6 " oh,
+	12 * oh,
+	od,
+	2 * od,
+	3 * od,
+	4 * od
+]
+let i = 1
+let found = false
+while(!found && i<intervals.length){
+	if gap < intervals[i] {
+		found = true
+	} else {
+		i++
+	}	
+}
+return interval[i-1]	
+
+}
+
+lastsnap = getlastsnap(pid)
+lastseen = getlastseen(pid)
+lastgap = lastsnap - lastseen
+curinterval = findinterval(lastgap)
+nextsnap = lastsnap + curinterval
+if new Date( )> nextsnap
+	do snap
+	
+
+```
+
+
+
+
+
+	  
 	  - last active function, detect the last time had a change
 - [ ] display last snapshot for a member
 - [ ] delete duplicates, if there are 3 snapshots in a row that are identical, delete the middle one

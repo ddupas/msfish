@@ -104,8 +104,9 @@
     <div id="playerlist"></div>
     <div id="killschart" style="width:100%; height:400px;"></div>
     <div id="winschart"></div>
-    <input type='text' id='input' placeholder="ENTER SOME SQL" size='50'
-        value=" SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name">
+    <textarea id="input" name="w3review" rows="4" cols="50">
+        SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name
+        </textarea>
     <button id='submit'>Execute</button>
     <pre id='result'></pre>
     <pre id='error'></pre>

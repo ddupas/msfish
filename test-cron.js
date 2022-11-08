@@ -16,3 +16,13 @@ const updatejob = schedule.scheduleJob('53 5 * * *',async function(){
   await updateplayers();
   console.log(`test-cron udateplayers: ${new Date()}`);
 });
+
+const startTime = new Date(Date.now() + 5000);
+const endTime = new Date(startTime.getTime() + 90000);
+const job = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' }, function(){
+  console.log('Time for tea!');
+});
+
+const job2 = schedule.scheduleJob({rule: '*/30 * * * * *' }, function(){
+  console.log(`freq:30 ${new Date()}`);
+});
