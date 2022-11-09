@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-
-<head>
-
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MSFISH</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
+  </head>
+  
 
 <body>
-    <h1>MSFISH</h1>
-    <P>click player</P>
     <meta charset="utf8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"
         integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg=="
@@ -21,6 +23,7 @@
             const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
             window.db = new SQL.Database(new Uint8Array(buf));
             window.listp();
+            window.showcharts(window.results[0][1])
         });
         window.showcharts = (id) => {
             var chartdata = [];
@@ -32,6 +35,7 @@
             var result = '', error = '';
             try { result = window.db.exec(sql); }
             catch (e) { error = e; }
+            
             result[0]['values'].forEach(element => {
                 chartdata.push([parseInt(element[0]), parseInt(element[1])]);
                 chartdata2.push([parseInt(element[0]), parseFloat(element[2])]);
@@ -44,7 +48,8 @@
             });
             const chart = Highcharts.chart('killschart', {
                 chart: {
-                    type: 'line'
+                    type: 'line',
+                    height: `${window.innerHeight}px`
                 },
                 title: {
                     text: result[0]['values'][0][3]
@@ -88,28 +93,91 @@
                 }
             });
         }
+
+
         window.listp = () => {
-            var ele = document.getElementById('playerlist');
-            ele.innerHTML = '<ul>';
-            var sql = "select name, id from players";
+            var innerhtml = '<div class="list-group ">'
+            var ele = document.getElementById('playerlist');         
+            var sql = `
+            SELECT name, pid,            
+STRFTIME('%s','now') * 1000 - MIN(date) AS miliago,
+(STRFTIME('%s','now') * 1000 - MIN(date)) / 1000 / 60 / 60 / 24 AS daysago,
+(STRFTIME('%s','now') * 1000 - MIN(date)) / 1000 / 60 / 60 % 24 AS hoursago,
+(STRFTIME('%s','now') * 1000 - MIN(date)) / 1000 % 60 AS minutesago,
+strftime('%Y-%m-%d %H:%M',MAX(date)/1000,'unixepoch'),
+(STRFTIME('%s','now') * 1000 - MAX(date)) / 1000 / 60 / 60 / 24 AS lsdaysago,
+(STRFTIME('%s','now') * 1000 - MAX(date)) / 1000 / 60 / 60 % 24 AS lshoursago,
+(STRFTIME('%s','now') * 1000 - MAX(date)) / 1000 % 60 AS lsminutesago,
+MAX(date)
+AS lastsnapshot FROM (
+SELECT * FROM (
+SELECT pid, MAX(date) AS recentdate, name, kills
+FROM snapshots GROUP BY pid) AS a
+JOIN snapshots AS b ON
+a.pid = b.pid AND a.kills = b.kills)  
+GROUP BY pid ORDER BY miliago
+`;       
             var result = '', error = '';
-            try { result = window.db.exec(sql); }
+            try { result = window.db.exec(sql); }          
             catch (e) { error = e; }
+            window.results = result[0]['values']        
             result[0]['values'].forEach(element => {
-                ele.innerHTML += `<li onclick=window.showcharts('${element[1]}')>${element[0]}</li>`
+                innerhtml +=
+                 `<div style="width: 13em; display:inline " 
+                 class="list-group-item py-1" 
+                 onclick=window.showcharts('${element[1]}')>
+
+                    <div class="name">  ${element[0]}  </div>
+                   
+                    <div style="font-size: .5rem;">
+                        🎮
+                        ${element[3]} days,
+                        ${element[4]} hours,
+                        ${element[5]} minutes ago.
+                    </div>
+                    <div style="font-size: .5rem;">
+                        📸
+                        ${element[7]} days,
+                        ${element[8]} hours,
+                        ${element[9]} minutes ago
+                    </div>
+                </div>
+                `
             });
-            ele.innerHTML += '</ul>'
+            innerhtml += '</div>'
+            ele.innerHTML = innerhtml;
+           
         }
     </script>
-    <div id="playerlist"></div>
-    <div id="killschart" style="width:100%; height:400px;"></div>
-    <div id="winschart"></div>
-    <textarea id="input" name="w3review" rows="4" cols="50">
-        SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name
-        </textarea>
-    <button id='submit'>Execute</button>
-    <pre id='result'></pre>
-    <pre id='error'></pre>
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div id="playerlist" ></div>
+      </div>
+      <div class="col-9">
+        <div id="killschart" style = "height:auto"></div>
+      </div>
+      
+    </div>
+
+      </div>
+
+    
+        
+        
+    
+    
+    <div class="sqlrepl" style="display: none;">
+        <textarea id="input" name="w3review" rows="4" cols="50">
+            SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name
+            </textarea>
+        <button id='submit'>Execute</button>
+        <pre id='result'></pre>
+        <pre id='error'></pre>
+    </div>
+    
     <script>
         document.getElementById('submit').onclick = function () {
             var sql = document.getElementById('input').value;
@@ -120,4 +188,7 @@
             document.getElementById('error').innerHTML = error;
         };
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+</html>

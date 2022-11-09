@@ -1,64 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/darrell/msfish/msfish.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1085"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainsnapshots"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="players" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="182"/><column index="2" value="121"/><column index="3" value="66"/><column index="4" value="114"/><column index="5" value="56"/><column index="6" value="49"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="snapshots" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="178"/><column index="2" value="104"/><column index="3" value="158"/><column index="4" value="55"/><column index="5" value="54"/><column index="6" value="55"/><column index="7" value="48"/><column index="8" value="69"/><column index="9" value="69"/><column index="10" value="55"/><column index="11" value="45"/><column index="12" value="48"/><column index="13" value="233"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT * FROM snapshots 
-GROUP BY pid
-ORDER BY date DESC LIMIT 1</sql><sql name="SQL 3">INSERT INTO &quot;players&quot; (id,name,snapfreq,lastsnap,discord,status)
-	VALUES 
-	('234','Milanzzz','6','now','432#234','active'),
-	('1234','azMilanzzz','6','now','432#234','active'),
-	('2234','zazMilanzzz','6','now','432#234','active'),
-	('3234','zzazMilanzzz','6','now','432#234','active')
-	ON CONFLICT(id) DO UPDATE SET
-	 name = excluded.name,
-	 snapfreq = excluded.snapfreq,
-	 lastsnap = excluded.lastsnap,
-	 discord = excluded.discord,
-	 status = excluded.status;
-	</sql><sql name="SQL 4">CREATE TABLE &quot;snapshots&quot; (
-&quot;pid&quot;	TEXT,
-&quot;date&quot; 	TEXT,
-&quot;Name&quot;	TEXT,
-&quot;Kills&quot;	TEXT,
-&quot;Deaths&quot;	TEXT,
-&quot;wk&quot;	TEXT,
-&quot;vk&quot;	TEXT,
-&quot;dd&quot;	TEXT,
-&quot;xp&quot;	TEXT,
-&quot;hs&quot;	TEXT,
-&quot;brw&quot;	TEXT,
-&quot;cmw&quot;	TEXT,
-&quot;Medals&quot; TEXT
-);</sql><sql name="SQL 5">Select Max(date) As recentdate
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/darrell/msfish/msfish.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1085"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainsnapshots"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="players" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="4" mode="0"/></sort><column_widths><column index="1" value="182"/><column index="2" value="121"/><column index="3" value="66"/><column index="4" value="114"/><column index="5" value="56"/><column index="6" value="49"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="snapshots" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="2" mode="1"/></sort><column_widths><column index="1" value="178"/><column index="2" value="104"/><column index="3" value="158"/><column index="4" value="55"/><column index="5" value="54"/><column index="6" value="55"/><column index="7" value="48"/><column index="8" value="69"/><column index="9" value="69"/><column index="10" value="55"/><column index="11" value="45"/><column index="12" value="48"/><column index="13" value="233"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="get medals">Select Max(date) As recentdate
     , name, Medals
 From snapshots
-Group By pid</sql><sql name="SQL 6">SELECT * FROM
-(SELECT pid, max(date) As recentdate
+Group By pid</sql><sql name="last seen 00">select 
+name,
+max(date)-min(date) as miliago,
+(max(date)-min(date))/1000 / 60 / 60 / 24 as daysago,
+(max(date)-min(date))/1000 / 60 / 60 % 24 as hoursago,
+(max(date)-min(date))/1000 % 60 as minutesago,
+max(date) as lastsnapshot
+
+from (
+select * from (
+SELECT  pid, max(date) As recentdate
     , name, kills
-From snapshots
-Group By pid) t1 INNER JOIN
+From snapshots 
+Group By pid 
+) as a
+join snapshots
+ as b
+on
+a.pid = b.pid and a.kills = b.kills)  
+group by pid
+order by miliago 
 
-(SELECT pid, min(date) As recentdate
-    , kills
-From snapshots
-Group By pid) t2 ON
-t1.pid = t2.pid
 
-</sql><sql name="SQL 7">SELECT name, rkills-kills as kills , rdeaths - deaths as deaths, printf(&quot;%.2f&quot;, (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
-rcmw - cmw as cmw , rbrw - brw as brw
- FROM
-(SELECT pid, max(date) As recentdate
-    , name, kills as rkills, Deaths as rdeaths, cmw as rcmw, brw as rbrw
-From snapshots
-Group By pid) t1 INNER JOIN
-(SELECT pid, max(date) As pastdate
-    , kills, Deaths, cmw, brw
-From snapshots
-where date &lt; (STRFTIME('%s', 'now') * 1000 ) - ( 86400000 * 3.0 )
-Group By pid) t2 ON
-t1.pid = t2.pid
-where rkills-kills &gt; 0
-
-</sql><sql name="SQL 8"> SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name;</sql><sql name="SQL 12">
-SELECT (STRFTIME('%s', 'now') * 1000 ), date, (STRFTIME('%s', 'now') * 1000 - date ) /1000 as seconds,  (STRFTIME('%s', 'now') * 1000 - date ) /1000 /60 as minutes,
-(STRFTIME('%s', 'now') * 1000 - date ) /1000 / 60 / 60 as hours
-
-from snapshots
-order by date</sql><current_tab id="5"/></tab_sql></sqlb_project>
+</sql><sql name="simple join">select a.pid, a.Kills from snapshots as a
+JOIN
+snapshots as b
+on
+a.pid = b.pid</sql><sql name="LAST SEEN V1">SELECT name,pid,            
+STRFTIME('%s','now')*1000 - MIN(date) AS miliago,
+(STRFTIME('%s','now')*1000 - MIN(date))/1000 / 60 / 60 / 24 AS daysago,
+(STRFTIME('%s','now')*1000 - MIN(date))/1000 / 60 / 60 % 24 AS hoursago,
+(STRFTIME('%s','now')*1000 - MIN(date))/1000 % 60 AS minutesago,
+MAX(date) AS lastsnapshot FROM (
+SELECT * FROM (
+SELECT pid, MAX(date) AS recentdate, name, kills
+FROM snapshots GROUP BY pid) AS a
+JOIN snapshots AS b ON
+a.pid = b.pid AND a.kills = b.kills)  
+GROUP BY pid ORDER BY miliago</sql><current_tab id="1"/></tab_sql></sqlb_project>
