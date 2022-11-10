@@ -1,21 +1,14 @@
 'use strict'
-
 const axios = require('axios');
 const { JSDOM } = require('jsdom');
 const SQLite3 = require('node-sqlite3');
 
-
 async function getpage(snap) {
     return new Promise((resolve, reject) => {
-        axios.get('https://stats.warbrokers.io/players/i/' + snap.pid).then(function (response) {
-            // handle success
-            // console.log(response);
+        axios.get('https://stats.warbrokers.io/players/i/' + snap.pid).then((response) => {
             snap.page = response.data;
             resolve(snap);
-
-        })
-            .catch(function (error) {
-                // handle error
+        }).catch(function (error) {
                 console.log(error);
                 reject(error);
             })
@@ -24,24 +17,14 @@ async function getpage(snap) {
 
 const xpathfor = {
     "Name": '/html/body/div[2]/div[1]/div/text()',
-
     "Kills": '//*[@id="player-details-summary-grid"]/div[2]/div[2]',
-
     "Deaths": '//*[@id="player-details-summary-grid"]/div[3]/div[2]',
-
     "wk": '//*[@id="player-details-summary-grid"]/div[7]/div[2]',
-
     "vk": '//*[@id="player-details-summary-grid"]/div[8]/div[2]',
-
     "dd": '//*[@id="player-details-summary-grid"]/div[9]/div[2]',
-
     "xp": '//*[@id="player-details-summary-grid"]/div[6]/div[2]',
-
     "hs": '//*[@id="player-details-summary-grid"]/div[10]/div[2]',
-
     "brw": '//*[@id="player-details-summary-grid"]/div[11]/div[2]',
-
-
     "cmw": '//*[@id="player-details-summary-grid"]/div[12]/div[2]'
 };
 
