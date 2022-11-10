@@ -174,7 +174,7 @@ GROUP BY pid ORDER BY miliago
             window.results = result[0]['values']        
             result[0]['values'].forEach(element => {
                 innerhtml +=
-                 `<div style="width: 10em; background-color:#57BDA2 "
+                 `<div style="min-width: 8em; background-color:#57BDA2 "
                  class="list-group-item py-1" 
                  onclick=window.showcharts('${element[1]}')>
                     <div class="name">  ${element[0]}  </div>
