@@ -52,9 +52,11 @@
                 }
             });
             const chart = Highcharts.chart('killschart', {
+
                 chart: {
                     type: 'line',
-                    height: `${window.innerHeight}px`
+                    height: `${window.innerHeight}px`,
+                    backgroundColor : `rgba(255,255,255,0)`
                 },
                 title: {
                     text: result[0]['values'][0][3]
@@ -99,36 +101,33 @@
             });
         }
 
-        window.formatTime = (diff) => {
-
-diff/=1000
-  var interval = Math.floor(diff / 31536000);
-
-  if (interval >= 1) {
-    return interval + "y";
-  }
-  interval = Math.floor(diff / 2592000);
-  if (interval >= 1) {
-    return interval + "m";
-  }
-  interval = Math.floor(diff / 604800);
-  if (interval >= 1) {
-    return interval + "w";
-  }
-  interval = Math.floor(diff / 86400);
-  if (interval >= 1) {
-    return interval + "d";
-  }
-  interval = Math.floor(diff / 3600);
-  if (interval >= 1) {
-    return interval + "h";
-  }
-  interval = Math.floor(diff / 60);
-  if (interval >= 1) {
-    return interval + " m";
-  }
-  return "<1m";
-}
+        window.formatTime = (diff) => { diff/=1000;
+            var interval = Math.floor(diff / 31536000);
+            if (interval >= 1) {
+                return interval + "y";
+            }
+            interval = Math.floor(diff / 2592000);
+            if (interval >= 1) {
+                return interval + "m";
+            }
+            interval = Math.floor(diff / 604800);
+            if (interval >= 1) {
+                return interval + "w";
+            }
+            interval = Math.floor(diff / 86400);
+            if (interval >= 1) {
+                return interval + "d";
+            }
+            interval = Math.floor(diff / 3600);
+            if (interval >= 1) {
+                return interval + "h";
+            }
+            interval = Math.floor(diff / 60);
+            if (interval >= 1) {
+                return interval + " m";
+            }
+            return "<1m";
+        }
         window.listp = () => {
             var innerhtml = '<div class="list-group ">'
             var ele = document.getElementById('playerlist');         
@@ -150,45 +149,39 @@ GROUP BY pid ORDER BY miliago
             window.results = result[0]['values']        
             result[0]['values'].forEach(element => {
                 innerhtml +=
-                 `<div style="width: 13em; display:inline " 
+                 `<div style="width: 10em; display:inline "
                  class="list-group-item py-1" 
                  onclick=window.showcharts('${element[1]}')>
-
                     <div class="name">  ${element[0]}  </div>
-                   
                     <div style="font-size: .7rem;">
-                        🎮
-                        ${window.formatTime(element[2])}
-                        📸
-                        ${window.formatTime(element[3])}
-
+                        🎮 ${window.formatTime(element[2])}
+                        📸  ${window.formatTime(element[3])}
                     </div>
                 </div>
-                `
-            });
+                `});
             innerhtml += '</div>'
             ele.innerHTML = innerhtml;
         }
     </script>
 <div class="container">
     <div class="row">
-      <div class="col-3">
+      <div class="col-2">
       <h2>msfish</h2>
         <div id="playerlist" ></div>
       </div>
-      <div class="col-9">
+      <div class="col-10">
         <div id="killschart" style = "height:auto"></div>
       </div>
     </div>
-      </div>
-    <div class="sqlrepl" style="display: none;">
-        <textarea id="input" name="w3review" rows="4" cols="50">
-            SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name
-            </textarea>
-        <button id='submit'>Execute</button>
-        <pre id='result'></pre>
-        <pre id='error'></pre>
-    </div>
+</div>
+<div class="sqlrepl" style="display: none;">
+    <textarea id="input" name="w3review" rows="4" cols="50">
+        SELECT name as 🤡 FROM sqlite_schema WHERE type='table' ORDER BY name
+    </textarea>
+    <button id='submit'>Execute</button>
+    <pre id='result'></pre>
+    <pre id='error'></pre>
+</div>
     
     <script>
         document.getElementById('submit').onclick = function () {
