@@ -3,18 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MSFISH</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
-  </head>
-  
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
-
-
-
-
-<body>
-    <meta charset="utf8" />
+    <title>msfish</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link rel="icon" href=
+    "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"
         integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -33,30 +26,25 @@
         window.showcharts = (id) => {
             var chartdata = [];
             var chartdata2 = [];
-
-            // alert: printf detected in an html page :explosion:
-
             var sql = `select date, kills,  printf("%.4f", kills * 1.0 / deaths * 1.0) as kd, name from snapshots where pid="${id}"`;
             var result = '', error = '';
             try { result = window.db.exec(sql); }
             catch (e) { error = e; }
-            
             result[0]['values'].forEach(element => {
                 chartdata.push([parseInt(element[0]), parseInt(element[1])]);
                 chartdata2.push([parseInt(element[0]), parseFloat(element[2])]);
             });
-
             const chartoptions = Highcharts.setOptions({
                 time: {
                     timezone: 'America/Edmonton'
                 }
             });
             const chart = Highcharts.chart('killschart', {
-
                 chart: {
                     type: 'line',
                     height: `${window.innerHeight}px`,
-                    backgroundColor : `rgba(255,255,255,0)`
+                    backgroundColor : `rgba(255,255,255,0)`,
+                    styledMode : false
                 },
                 title: {
                     text: result[0]['values'][0][3]
@@ -79,7 +67,6 @@
                         text: 'kd'
                     }, opposite: true
                 }],
-
                 series: [{
                     yAxis: 0,
                     name: 'kills',
@@ -90,7 +77,6 @@
                     data: chartdata2
                 }
                 ],
-
                 plotOptions: {
                     series: {
                         label: {
@@ -100,6 +86,45 @@
                 }
             });
         }
+        /*
+YELLOW GOLD #DCB13C
+AQUA #57BDA2
+TEAL #2493A2
+MEDIUM BLUE #304A78
+NAVY BLUE #2C3259
+DARK BLUE #0A0E28
+
+    */
+
+        Highcharts.theme = {
+    colors: ['#57BDA2', '#2493A2', '#304A78', '#2C3259', '#0A0E28'],
+    chart: {
+        backgroundColor: 'rgba(1,1,1,1)',
+    },
+    title: {
+        style: {
+            color: '#0A0E28',
+            font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+        }
+    },
+    subtitle: {
+        style: {
+            color: '#0A0E28',
+            font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+        }
+    },
+    legend: {
+        itemStyle: {
+            font: '9pt Trebuchet MS, Verdana, sans-serif',
+            color: '#0A0E28'
+        },
+        itemHoverStyle:{
+            color: '#57BDA2'
+        }
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
 
         window.formatTime = (diff) => { diff/=1000;
             var interval = Math.floor(diff / 31536000);
@@ -149,7 +174,7 @@ GROUP BY pid ORDER BY miliago
             window.results = result[0]['values']        
             result[0]['values'].forEach(element => {
                 innerhtml +=
-                 `<div style="width: 10em; display:inline "
+                 `<div style="width: 10em; background-color:#57BDA2 "
                  class="list-group-item py-1" 
                  onclick=window.showcharts('${element[1]}')>
                     <div class="name">  ${element[0]}  </div>
@@ -163,37 +188,19 @@ GROUP BY pid ORDER BY miliago
             ele.innerHTML = innerhtml;
         }
     </script>
-<div class="container">
-    <div class="row">
-      <div class="col-2">
-      <h2>msfish</h2>
-        <div id="playerlist" ></div>
-      </div>
-      <div class="col-10">
-        <div id="killschart" style = "height:auto"></div>
-      </div>
+</head>
+<body style="background-color:#DCB13C; color:#0A0E28">
+    <div class="container">
+        <div class="row">
+        <div class="col-2">
+            <h2>msfish</h2>
+            <div id="playerlist" ></div>
+        </div>
+        <div class="col-10">
+            <div id="killschart" style="height:auto"></div>
+        </div>
+        </div>
     </div>
-</div>
-<div class="sqlrepl" style="display: none;">
-    <textarea id="input" name="w3review" rows="4" cols="50">
-        SELECT name as 🤡 FROM sqlite_schema WHERE type='table' ORDER BY name
-    </textarea>
-    <button id='submit'>Execute</button>
-    <pre id='result'></pre>
-    <pre id='error'></pre>
-</div>
-    
-    <script>
-        document.getElementById('submit').onclick = function () {
-            var sql = document.getElementById('input').value;
-            var result = '', error = '';
-            try { result = window.db.exec(sql); }
-            catch (e) { error = e; }
-            document.getElementById('result').innerHTML = JSON.stringify(result, null, '  ');
-            document.getElementById('error').innerHTML = error;
-        };
-    </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
+
