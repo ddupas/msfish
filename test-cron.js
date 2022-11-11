@@ -28,7 +28,7 @@ async function checkforupdates() {
 	const fs = require('fs');
 	const initSqlJs = require('./node_modules/sql.js/dist/sql-wasm.js');
 	const filebuffer = fs.readFileSync('./msfish.db');
-	initSqlJs().then( async (SQL) => {
+	initSqlJs().then(async (SQL) => {
 		const db = new SQL.Database(filebuffer);
 		const sqlstmnt = 'select * from playerstatus';
 		let result = '';
@@ -49,8 +49,7 @@ async function checkforupdates() {
 }
 
 
-schedule.scheduleJob('56 5,8,11,14,17,20,23 * * *', async function() {
-	// https://crontab.guru/#56_7,11,15,19,23_*_*_*
+schedule.scheduleJob('56 6 * * *', async function() {
 	await snapshotall();
 	console.log(`test-cron snapshotall: ${new Date()}`);
 	await gitpushdb();
@@ -58,7 +57,7 @@ schedule.scheduleJob('56 5,8,11,14,17,20,23 * * *', async function() {
 
 });
 
-schedule.scheduleJob('53 5 * * *', async function() {
+schedule.scheduleJob('41 5 * * *', async function() {
 	await updateplayers();
 	console.log(`test-cron udateplayers: ${new Date()}`);
 });
@@ -72,6 +71,7 @@ schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' },
 
 schedule.scheduleJob({ rule: '*/30 * * * * *' }, function() {
 	console.log(`freq:30 ${new Date()}`);
-	checkforupdates();
+	await checkforupdates();
+	await gitpushdb();
 });
-checkforupdates();
+
