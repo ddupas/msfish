@@ -69,9 +69,11 @@ schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' },
 	console.log('Time for tea!');
 });
 
-schedule.scheduleJob({ rule: '*/30 * * * * *' }, function() {
-	console.log(`freq:30 ${new Date()}`);
-	await checkforupdates();
+schedule.scheduleJob({ rule: '* 5 * * * *' }, async function() {
 	await gitpushdb();
+});
+
+schedule.scheduleJob({ rule: '*/30 * * * * *' }, async function() {
+	await checkforupdates();
 });
 
