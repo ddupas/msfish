@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const { snapshotall } = require('./snapshotall');
+const { snapshotall, snapshotone } = require('./snapshotall');
 const { updateplayers } = require('./updateplayers');
 const { gitpushdb } = require('./gitpushdb');
 
@@ -24,14 +24,6 @@ const nextsnap = (lastseen) => {
 	return cursor / scale;
 };
 
-/*
-lastsnap = getlastsnap(pid)
-lastseen = getlastseen(pid)
-if new Date( )> nextsnap(lastseen,lastsnap)
-	do snap
-
-*/
-
 const checkforupdates = () => {
 	const fs = require('fs');
 	const initSqlJs = require('./node_modules/sql.js/dist/sql-wasm.js');
@@ -43,7 +35,16 @@ const checkforupdates = () => {
 		try { result = db.exec(sqlstmnt); }
 		catch (e) { console.log(e); }
 		result[0]['values'].forEach(element => {
-			console.log(`blah blah blah ${element[0]} ${nextsnap(element[2])}`);
+			const name = element[0];
+			const pid = element[1];
+			const lastseen = element[2];
+			const lastsnap = element[3];
+			if (lastsnap > nextsnap(lastseen)) {
+				console.log(`update ${name}`);
+				// await updateplayer(pid)
+				await snapshotone(pid);
+			}
+			// console.log(`${name} ${Date.now()}  ${lastseen} ${lastsnap}  ${nextsnap(lastseen)}`);
 		});
 	});
 }

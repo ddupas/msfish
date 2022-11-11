@@ -112,3 +112,10 @@ async function snapshotall() {
 	});
 }
 module.exports.snapshotall = snapshotall;
+
+async function snapshotone(pid) {
+	getpage(pid)
+		.then(snap => parsepage(snap))
+		.then(snap => addtodb(snap));
+}
+module.exports.snapshotone = snapshotone;
