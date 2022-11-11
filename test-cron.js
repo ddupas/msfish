@@ -43,7 +43,7 @@ const checkforupdates = () => {
 		try { result = db.exec(sqlstmnt); }
 		catch (e) { console.log(e); }
 		result[0]['values'].forEach(element => {
-			console.log(`${element[0]} ${nextsnap(element[2])}`);
+			console.log(`blah blah blah ${element[0]} ${nextsnap(element[2])}`);
 		});
 	});
 }

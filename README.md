@@ -4,7 +4,19 @@
 A statistics bot for War Fish War Brokers squad. This bot collects stats from
 stats.warbrokers.io so that it is able to display some charts and medals. It
 is also a discord bot. Msfish was created to answer the question
-of who is active and who is winning medals on warbrokers. 
+of who is active and who is winning medals on warbrokers.
+
+## gains
+Its important to recognize the tooling and workflow that emerges as one 
+gets more comfortable. At the start of the project DB Browser for Sqlite was
+indispensable but as I got more comfortable the less I needed it. Now, 
+I prefer to cat a file into sqlite3.
+
+```sh
+> cat test.sql | sqlite3 msfish.db -markdown
+```
+Gnome-builder with Git Desktop is the answer for me right now. I debug
+front-end with chrome, but if I need to debug node still use code oss.
 
 ## charts
 https://ddupas.github.io/msfish/
