@@ -24,24 +24,23 @@ const nextsnap = (lastseen) => {
 	return cursor / scale;
 };
 
-const checkforupdates = () => {
+async function checkforupdates() {
 	const fs = require('fs');
 	const initSqlJs = require('./node_modules/sql.js/dist/sql-wasm.js');
 	const filebuffer = fs.readFileSync('./msfish.db');
-	initSqlJs().then((SQL) => {
+	initSqlJs().then( async (SQL) => {
 		const db = new SQL.Database(filebuffer);
 		const sqlstmnt = 'select * from playerstatus';
 		let result = '';
 		try { result = db.exec(sqlstmnt); }
 		catch (e) { console.log(e); }
-		result[0]['values'].forEach(element => {
+		result[0]['values'].forEach(async element => {
 			const name = element[0];
 			const pid = element[1];
 			const lastseen = element[2];
 			const lastsnap = element[3];
 			if (lastsnap > nextsnap(lastseen)) {
 				console.log(`update ${name}`);
-				// await updateplayer(pid)
 				await snapshotone(pid);
 			}
 			// console.log(`${name} ${Date.now()}  ${lastseen} ${lastsnap}  ${nextsnap(lastseen)}`);

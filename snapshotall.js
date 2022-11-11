@@ -5,7 +5,7 @@ const SQLite3 = require('node-sqlite3');
 
 async function getpage(snap) {
 	return new Promise((resolve, reject) => {
-		axios.get('https://stats.warbrokers.io/players/i/' + snap.pid).then((response) => {
+		axios.get('https://stats.warbrokers.io/players/i/' + snap.pid).then(async (response) => {
 			snap.page = response.data;
 			resolve(snap);
 		}).catch((error) => {
@@ -114,7 +114,7 @@ async function snapshotall() {
 module.exports.snapshotall = snapshotall;
 
 async function snapshotone(pid) {
-	getpage(pid)
+	getpage({pid})
 		.then(snap => parsepage(snap))
 		.then(snap => addtodb(snap));
 }
