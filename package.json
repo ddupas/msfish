@@ -6,7 +6,7 @@
     "jsdom": "^20.0.1",
     "node-schedule": "^2.1.0",
     "node-sqlite3": "github:a-was/node-sqlite3",
-    "sql.js": "^1.8.0",
+    "sql.js": "github:sql-js/sql.js",
     "sqlite3": "^5.1.2"
   },
   "name": "msfish",
@@ -25,7 +25,7 @@
     "test-gitpushdb": "node test-gitpushdb.js",
     "test-cron": "node test-cron.js",
     "msfish": "node index.js",
-    "test-index" : "http-server -o -c-1 -p 8081"
+    "test-index": "http-server -o -c-1 -p 8081"
   },
   "repository": {
     "type": "git",

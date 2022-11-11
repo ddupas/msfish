@@ -52,6 +52,10 @@ window.showcharts = (id) => {
 	let result = '';
 	try { result = window.db.exec(sql); }
 	catch (e) { console.log(e); }
+	/*
+ TODO: look into binding results of 2 diff queries to chart param 
+ rather than looping to create chartdata
+ */
 	result[0]['values'].forEach((element) => {
 		chartdata.push([parseInt(element[0]), parseInt(element[1])]);
 		chartdata2.push([parseInt(element[0]), parseFloat(element[2])]);
@@ -117,6 +121,30 @@ window.formatTime = (diff) => {
 	return '<1m';
 };
 
+/*
+	TODO: rewrite nextsnap using logrithm getting rid of loop
+    ns = base + scale ^ iter
+*/	
+window.nextsnap = (lastseen) =>  {
+  const m = 1000 * 60;
+  const scale = 2.0;
+  const base = 5.0 * m;
+
+  let i = 1
+  let cursor = base;
+  let found = false;
+
+  while(!found && i<20) {
+	  if (cursor > lastseen) {
+		  found = true
+	  } else {
+		  i++;
+		  cursor*=scale;
+	  }
+  }
+  return cursor/scale;
+}
+
 window.listp = () => {
 	let innerhtml = '<div class="list-group ">';
 	const ele = document.getElementById('playerlist');
@@ -127,13 +155,14 @@ window.listp = () => {
 	window.results = result[0]['values'];
 	result[0]['values'].forEach(element => {
 		innerhtml +=
-       `<div style="min-width: 8em; background-color:#57BDA2 "
+       `<div style="min-width: 9em; background-color:#57BDA2 "
        class="list-group-item py-1"
        onclick=window.showcharts('${element[1]}')>
           <div class="name">  ${element[0]}  </div>
           <div style="font-size: .7rem;">
               🎮 ${window.formatTime(element[2])}
               📸 ${window.formatTime(element[3])}
+              ➡️ ${window.formatTime(window.nextsnap(element[2]))}
           </div>
       </div>
       `;
