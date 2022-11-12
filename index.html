@@ -127,24 +127,10 @@ window.formatTime = (diff) => {
     ns = base + scale ^ iter
 */	
 window.nextsnap = (lastseen) =>  {
-  const m = 1000 * 60;
-  const scale = 2.0;
-  const base = 5.0 * m;
-
-  let i = 1
-  let cursor = base;
-  let found = false;
-
-  while(!found && i<20) {
-	  if (cursor > lastseen) {
-		  found = true
-	  } else {
-		  i++;
-		  cursor*=scale;
-	  }
-  }
-  return cursor/scale;
-}
+	const m = 1000 * 60;
+	const base = 5.0 * m;
+	return (base > 2 * lastseen) ? base : lastseen / 2;
+};
 
 window.listp = () => {
 	let innerhtml = '<div class="list-group ">';

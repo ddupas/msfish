@@ -5,23 +5,8 @@ const { gitpushdb } = require('./gitpushdb');
 
 const nextsnap = (lastseen) => {
 	const m = 1000 * 60;
-	const scale = 2.0;
 	const base = 5.0 * m;
-
-	let i = 1;
-	let cursor = base;
-	let found = false;
-
-	while (!found && i < 20) {
-		if (cursor > lastseen) {
-			found = true;
-		}
-		else {
-			i++;
-			cursor *= scale;
-		}
-	}
-	return cursor / scale;
+	return (base > 2 * lastseen) ? base : lastseen / 2;
 };
 
 async function checkforupdates() {
@@ -71,9 +56,11 @@ schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' },
 
 schedule.scheduleJob({ rule: '* 5 * * * *' }, async function() {
 	await gitpushdb();
+	console.log(`test-cron gitpushdb: ${new Date()}`);
 });
 
 schedule.scheduleJob({ rule: '*/30 * * * * *' }, async function() {
 	await checkforupdates();
+	console.log(`test-cron checkforupdates: ${new Date()}`);
 });
 
