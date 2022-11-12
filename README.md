@@ -7,23 +7,22 @@ is also a discord bot. Msfish was created to answer the question
 of who is active and who is winning medals on warbrokers.
 
 ## gains
-Its important to recognize the tooling and workflow that emerges as one 
-gets more comfortable. At the start of the project DB Browser for Sqlite was
+At the start of the project DB Browser for Sqlite was
 indispensable but as I got more comfortable the less I needed it. Now, 
 I prefer to cat a file into sqlite3.
 
 ```sh
 > cat test.sql | sqlite3 msfish.db -markdown
 ```
-Gnome-builder with Git Desktop is the answer for me right now. I debug
-front-end with chrome, but if I need to debug node still use code oss.
+IDE Tools: Gnome-builder, Git Desktop, Chrome DevTools
+Debuging node with Chrome DevTools requires running node --inspect, then
+opening chrome://inspect.
 
 ## charts
 https://ddupas.github.io/msfish/
 
 ## todo
 
-- [ ] update active   
 - [ ] display last snapshot for a member
 - [ ] delete duplicates, if there are 3 snapshots in a row that are identical, delete the middle one
 - [ ] set members discord id
@@ -35,9 +34,9 @@ https://ddupas.github.io/msfish/
 - ### Node
 	A javascript runtime on my server at home. It runs a discord bot that
 	interacts with users, but also fetches the data from stats.warbrokers.io
-	and sends the data to a public repository where
+	and sends the data to a public repository
 - ### Eslint
-	A code problem detector, not sure if its working
+	A code problem detector
 - ### Discord.js
 	Discord bot based on the tutorial almost straight copy. the config.json 
 	file is .gitignored so, the secret keys are not in the repo
