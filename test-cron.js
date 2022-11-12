@@ -28,7 +28,7 @@ async function checkforupdates() {
 			const lastseen = element[2];
 			const lastsnap = element[3];
 			if (lastsnap > nextsnap(lastseen)) {
-				console.log(`update ${name}`);
+				console.log(`update ${name} ${new Date()}`);
 				await snapshotone(pid);
 			}
 			// console.log(`${name} ${Date.now()}  ${lastseen} ${lastsnap}  ${nextsnap(lastseen)}`);
@@ -64,6 +64,5 @@ schedule.scheduleJob('*/5 * * * *', async function() {
 
 schedule.scheduleJob({ rule: '*/30 * * * * *' }, async function() {
 	await checkforupdates();
-	console.log(`test-cron checkforupdates: ${new Date()}`);
 });
 
