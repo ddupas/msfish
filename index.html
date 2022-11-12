@@ -43,7 +43,7 @@ window.updatedb = async () =>{
     const sqlPromise = initSqlJs({
 		  locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`,
 	  });
-	  const dataPromise = fetch('./msfish.db').then(res => res.arrayBuffer());
+	  const dataPromise = fetch('./msfish.db',{cache: "no-store"}).then(res => res.arrayBuffer());
 	  const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
 	  window.db = new SQL.Database(new Uint8Array(buf));
   }
