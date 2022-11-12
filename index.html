@@ -34,15 +34,19 @@ window.showlastsquad = () => {
 };
 
 window.addEventListener('load', async function() {
-	const sqlPromise = initSqlJs({
-		locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`,
-	});
-	const dataPromise = fetch('./msfish.db').then(res => res.arrayBuffer());
-	const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
-	window.db = new SQL.Database(new Uint8Array(buf));
+	await window.updatedb();
 	window.listp();
 	window.showcharts(window.results[0][1]);
 });
+
+window.updatedb = async () =>{
+    const sqlPromise = initSqlJs({
+		  locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`,
+	  });
+	  const dataPromise = fetch('./msfish.db').then(res => res.arrayBuffer());
+	  const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+	  window.db = new SQL.Database(new Uint8Array(buf));
+  }
 
 window.showcharts = (id) => {
 	const chartdata = [];
@@ -147,7 +151,7 @@ window.listp = () => {
 		innerhtml +=
        `<div style="min-width: 11em; background-color:#57BDA2 "
        class="list-group-item py-1"
-       onclick=window.showcharts('${element[1]}')>
+       onclick="window.showcharts('${element[1]}');window.listp();">
           <div class="name">  ${element[0]}  </div>
           <div style="font-size: .7rem;">
               🎮 ${window.formatTime(element[2])}
@@ -160,6 +164,10 @@ window.listp = () => {
 	innerhtml += '</div>';
 	ele.innerHTML = innerhtml;
 };
+
+window.setInterval(() => {window.listp();},1000 * 60);
+window.setInterval(() => {window.updatedb();},5 * 1000 * 60);
+
 </script>
 </head>
 <body style="background-color:#DCB13C; color:#0A0E28">
