@@ -6,7 +6,10 @@ const { gitpushdb } = require('./gitpushdb');
 const nextsnap = (lastseen) => {
 	const m = 1000 * 60;
 	const base = 5.0 * m;
-	return (base > 2 * lastseen) ? base : lastseen / 2;
+	if (lastseen < (2 * base)) {
+		return base;
+	}
+	return lastseen / 2;
 };
 
 async function checkforupdates() {
