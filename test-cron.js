@@ -54,7 +54,7 @@ schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' },
 	console.log('Time for tea!');
 });
 
-schedule.scheduleJob({ rule: '* */5 * * * *' }, async function() {
+schedule.scheduleJob('*/5 * * * *', async function() {
 	await gitpushdb();
 	console.log(`test-cron gitpushdb: ${new Date()}`);
 });
