@@ -54,7 +54,7 @@ https://ddupas.github.io/msfish/
 	Some overlap in functionality with various methods of accessing 
 	sqlite3, simply because I started with bare-bones, realized needed
 	to promisify it, found that, but then realized i also need an
-	in browser library for client side stuff. had i realized it was
+	in-browser library for client side stuff. had i realized it was
 	all heading toward needing sql.js, i would of started there
 - ### sql.js
     npm i does not download sql-wasm.js,
