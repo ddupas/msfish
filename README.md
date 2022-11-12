@@ -1,8 +1,8 @@
 # msfish
 
-## overview 
-A statistics bot for War Fish War Brokers squad. This bot collects stats from
-stats.warbrokers.io so that it is able to display some charts and medals. It
+## overview
+Msfish is a statistics bot for the War Fish War Brokers squad. This bot collects stats from
+stats.warbrokers.io and displays some charts and medals. It
 is also a discord bot. Msfish was created to answer the question
 of who is active and who is winning medals on warbrokers.
 
@@ -23,13 +23,13 @@ https://ddupas.github.io/msfish/
 
 ## todo
 
-- [ ] display last snapshot for a member
-- [ ] delete duplicates, if there are 3 snapshots in a row that are identical, delete the middle one
-- [ ] set members discord id
-- [ ] get medal details from hover pop up
+- [ ] display the last snapshot for a member
+- [ ] delete duplicates, delete the middle of 3 or more duplicates, keeping each end.
+- [ ] set the members' discord id
+- [ ] get medal details from the hover pop up
 - [ ] run as service on termux / systemd
 
-## technology stack with explanation 
+## technology stack with an explanation 
 
 - ### Node
 	A javascript runtime on my server at home. It runs a discord bot that
@@ -43,30 +43,31 @@ https://ddupas.github.io/msfish/
 - ### jsdom
 	A DOM document is a tree representation of a web page in memory
 	made of nodes. Loading a page into JSDOM allows searching using
-	xpath. xpath is a path into a dom just like a directory path leads
-	to a location on your web server.
-- ### git / github desktop
-	Not sure if I am abusing github tos by uploading my database to
-	the development repo, but here we are!!! Also, github desktop is better
-	than git built into codeoss or gnome-builder. Cron job relies on 
+	XPath. XPath is a path into a dom just like a directory path that 
+	leads to a location on your web server.
+- ### git / GitHub Desktop
+	Not sure if I am abusing GitHub's terms of service by uploading my database to
+	the development repo, but here we are!!! Also, GitHub desktop is better
+	than git built into CodeOSS or gnome-builder. Cron's job relies on 
 	keys without passwords.
 - ### Sqlite, a-was/node-sql, sql.js
-	Some overlap in functionality with various methods of accessing 
-	sqlite3, simply because I started with bare-bones, realized needed
-	to promisify it, found that, but then realized i also need an
-	in-browser library for client side stuff. had i realized it was
-	all heading toward needing sql.js, i would of started there
+	We have some overlap in functionality with various methods of accessing 
+	sqlite3, because I started with bare-bones, realized needed
+	to promisify it, and finally realized I also need an
+	in-browser library for client-side. 
 - ### sql.js
-    npm i does not download sql-wasm.js,
-    solution is to go to github page, find releases and unzip in dist
-    Also not trivial to use with cdn on front-end, see index.html for
-    2 step initialization
+	A sqlite3 library that can run client-side in-browser or on a node
+	server. Installation is not trivial for either. On the server, npm 
+	did not grab the files needed. The 
+    solution is to go to their GitHub page, find releases and unzip.
+	On the front end we use a CDN: see index.html for the
+    2 step initialization code.
 - ### highcharts.com for the chart
-	still digging into props but sofar its been interesting, should
-	mention this is fairly dependent on moment.js still chewing
+	We are still digging into the properties, but so far it's been interesting. 
+	Highcharts are heavily dependent on Moment.js.
 - ### node-schedule
 - ### http-server for testing index.html
-	index.html is the charts page hosted by github using fetch to get
-	db also from github and sql.js to query, however, a live server is
-	needed for testing, this one is better than the one in code-oss
+	index.html is the charts page hosted by GitHub.
+	It uses fetch to get the msfish.db database (also located on GitHub).
+	A live server like npx http-server is only needed for testing.
 
