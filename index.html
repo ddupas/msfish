@@ -67,50 +67,47 @@ window.showcharts = (id) => {
 	});
 
 Highcharts.chart('killschart', {
-		chart: {
-			type: 'line',
-			height: `${window.innerHeight}px`,
-			backgroundColor : 'rgba(255,255,255,0)',
-			styledMode : false,
-      zoomType: 'x',
-		},
-    legend: {
-      enabled: false,
-    },
-		title: { text: result[0]['values'][0][3] },
-		xAxis: {
-			type: 'datetime',
-			labels: {
-				formatter: function() {
-					const dd = new Date(this.value);
-					return dd.toLocaleDateString();
-				},
-			},
-		// end xaxis
-		},
-		yAxis: [
-			{ title: { enabled:false } },
-			{ title: { enabled:false },
-				opposite: true,
-			// end yaxis
-			}],
-		series: [{
-			yAxis: 0,
-			name: 'kills',
-			data: chartdata,
-		}, {
-			yAxis: 1,
-			name: 'kd',
-			data: chartdata2,
-		// end series
-		}],
-		plotOptions: {
-			series: {
-				label: { connectorAllowed: false },
-			},
+chart: {
+	type: 'line',
+	height: `${window.innerHeight}px`,
+	backgroundColor : 'rgba(255,255,255,0)',
+	styledMode : false,
+	zoomType: 'x',
+},
+legend: { enabled: false, },
+title: { text: result[0]['values'][0][3] },
+xAxis: {
+	type: 'datetime',
+	labels: {
+		formatter: function() {
+			const dd = new Date(this.value);
+			return dd.toLocaleDateString();
 		},
 	},
-	);
+},
+yAxis: [
+	{ title: { enabled:false } },
+	{ title: { enabled:false },
+		opposite: true,
+	}],
+series: [{
+	yAxis: 0,
+	name: 'kills',
+	data: chartdata,
+	color: '#11FF11'
+	
+}, {
+	yAxis: 1,
+	name: 'kd',
+	data: chartdata2,
+}],
+plotOptions: {
+        series: {
+            color: '#FF0000'
+        }
+    },
+}
+);
 };
 
 window.formatTime = (diff) => {
