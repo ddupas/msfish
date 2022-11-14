@@ -13,28 +13,16 @@
   integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script>/*
-  TODO: window.showlastplayer
-  show overview of last day, week, month for player
-  */
-window.showlastplayer = () => {
-	console.log('showlastplayer');
-
-};
-
-
-/*
-  TODO: window.showlastsquad
-  show overview of last day, week, month for squad
-  */
+<script>
 window.showlastsquad = async () => {
 	console.log('showlastsquad');
 	const ele = document.getElementById('lastsquad');
-	let show = [0.1,1.0,7.0,30];
+	let show = [0.05,0.1,1,3,31];
 	let innerhtml = '';
 	let sql = '';
 	let result = '';
-
+	innerhtml += `<div class="block"><table class="table is-fullwidth"><tr>
+	 <td width="25%"></td> <td>k</td><td>d</td><td>k/d</td><td>cw</td><td>brw</td></tr>`;
 	await show.forEach( async (days) => {
 		sql = `SELECT name, rkills-kills as kills , rdeaths - deaths as deaths,
     printf("%.2f", (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
@@ -48,19 +36,21 @@ window.showlastsquad = async () => {
 		try { result = await window.db.exec(sql); }
 		catch (e) { console.log(e); }
 		if (result[0] !== undefined ) {
-			innerhtml += `<div class="block">`;
-			innerhtml += `<table class="table"><thead>Last ${days}</thead>`
+			innerhtml += `<tr class='is-selected'><td colspan="6"> Last ${days} </td> </tr>`; 
 			result[0]['values'].forEach((element) => {
 				innerhtml += `<tr>`;
 				element.forEach( (col) => {
-					innerhtml += `<td>${col}</td>`;
+					if ( element[0] === col ) {
+						innerhtml += `<td width="25%">${col}</td>`;
+					} else {
+						innerhtml += `<td width="15%">${col}</td>`;
+					}			
 				});
 				innerhtml += `</tr>`;
-			});
-			innerhtml +=`</table></div>`;
+			});		
 		}
 	});
-
+	innerhtml +=`</table></div>`;
 	ele.innerHTML = innerhtml;
 };
 
@@ -196,7 +186,7 @@ window.listp = () => {
 	ele.innerHTML = innerhtml;
 };
 
-window.setInterval(() => {window.listp();},1000 * 60);
+window.setInterval(() => {window.listp();window.showlastsquad()},1000 * 60);
 window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
 
 </script>
