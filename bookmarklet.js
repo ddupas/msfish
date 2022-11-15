@@ -8,7 +8,7 @@
   also changed the way combo set selected on init
   
 */
-window.bulmaSwatchBookmarklet = async (parentElementId) => {
+window.bulmaSwatchBookmarklet = (parentElementId) => {
   console.log("colorselect");
   var request = new XMLHttpRequest();
   request.open("GET", "https://jenil.github.io/bulmaswatch/api/themes.json", true);
