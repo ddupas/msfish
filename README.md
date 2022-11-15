@@ -23,11 +23,11 @@ https://ddupas.github.io/msfish/
 
 ## todo
 
-- [ ] display the last snapshot for a member
 - [ ] delete duplicates, delete the middle of 3 or more duplicates, keeping each end.
 - [ ] set the members' discord id
 - [ ] get medal details from the hover pop up
 - [ ] run as service on termux / systemd
+- [ ] begginer install links (node,sqlite,git) and sample config.json
 
 ## technology stack with an explanation 
 
