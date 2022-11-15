@@ -1,11 +1,18 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+	
 <meta charset="utf-8">
 <meta http-equiv="Cache-control" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>msfish</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+<style>
+  h3,h2,h1 {color:red;}
+  td {font-size:.7em;}
+</style>
+	
 <link rel="icon" href=
 "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
                       <text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
@@ -21,7 +28,7 @@ window.showlastsquad = async () => {
 	let innerhtml = '';
 	let sql = '';
 	let result = '';
-	innerhtml += `<div class="block"><table class="table is-fullwidth"><tr>
+	innerhtml += ` <div class="block "><table class="table is-fullwidth "><tr>
 	 <td width="25%"></td> <td>k</td><td>d</td><td>k/d</td><td>cw</td><td>brw</td></tr>`;
 	await show.forEach( async (days) => {
 		sql = `SELECT name, rkills-kills as kills , rdeaths - deaths as deaths,
@@ -191,7 +198,7 @@ window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
 
 </script>
 </head>
-<body>
+<body >
 	<div class="columns is-mobile">
 	<div class="column is-one-fifth">
 		<div class="block">
@@ -209,7 +216,7 @@ window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
 	</div>
 	<div class="column ">
 		<div class="block" id="killschart"></div>
-		<div class="block" id="lastsquad"></div>
+		<div class="block " id="lastsquad"></div>
 	</div>
 </div>
 
