@@ -37,7 +37,9 @@ window.bulmaSwatchBookmarklet = (parentElementId) => {
       l.id = 'bulmaswatch-css';
       document.body.appendChild(l);
       document.querySelector('#theme-switcher select').addEventListener("change", function() {
-        l.href = this.value;       
+        l.href = this.value;
+        const body = document.querySelector("body");
+        body.className = 'none';
       });
     }
   }
