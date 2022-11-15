@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>msfish</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<script src="./bookmarklet.js"></script>
 <style>
   h3,h2,h1 {color:red;}
   td {font-size:.7em;}
@@ -28,6 +29,7 @@
   integrity="sha512-n7swEtVCvXpQ7KxgpPyp0+DQQEf5vPpmzCRl14x2sp2v5LpCYCjrAx03mkBAbWwGF9eUoIk8YVcDFuJRIeYttg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+	
 <script>
 window.showlastsquad = async () => {
 	console.log('showlastsquad');
@@ -74,6 +76,7 @@ window.addEventListener('load', async function() {
 	window.listp();
 	window.showcharts(window.results[0][1]);
 	window.showlastsquad();
+	window.colorselect();
 });
 
 window.updatedb = async () =>{
@@ -201,8 +204,8 @@ window.listp = () => {
 	ele.innerHTML = innerhtml;
 };
 
-window.setInterval(() => {window.listp();window.showlastsquad()},1000 * 60);
-window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
+window.setInterval(() => {window.listp();window.showlastsquad()},2 * 1000 * 60);
+window.setInterval(() => {window.updatedb();},3 * 1000 * 60);
 
 window.changebodyclass = (newclassname) => {
 	const body = document.querySelector("body");
@@ -211,7 +214,7 @@ window.changebodyclass = (newclassname) => {
 	
 </script>
 </head>
-<body class="darkb">
+<body class="none">
 	<div class="columns is-mobile">
 	<div class="column is-one-fifth">
 		<div class="block">
@@ -231,12 +234,14 @@ window.changebodyclass = (newclassname) => {
 		<div class="block" id="killschart"></div>
 		<div class="block " id="lastsquad"></div>
 		<div class="block" id="colorselect">
+			<div class="block">
 			<a onclick="changebodyclass('whiteb')" class="button is-white">White</a>
 			<a onclick="changebodyclass('lightb')" class="button is-light">Light</a>
 			<a onclick="changebodyclass('grayb')" class="button grayb">Gray</a>
 			<a onclick="changebodyclass('graygray')" class="button graygray">Graygray</a>
 			<a onclick="changebodyclass('darkb')" class="button is-dark">Dark</a>
 			<a onclick="changebodyclass('blackb')" class="button is-black">Black</a>
+			</div>
 		</div>
 	</div>
 </div>
