@@ -69,5 +69,6 @@ https://ddupas.github.io/msfish/
 - ### http-server for testing index.html
 	index.html is the charts page hosted by GitHub.
 	It uses fetch to get the msfish.db database (also located on GitHub).
-	A live server like npx http-server is only needed for testing.
+	A live server like npx http-server is only needed for testing
+- ### bulma - css layout and style for columns, lists and table styles
 
