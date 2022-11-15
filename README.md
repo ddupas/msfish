@@ -71,5 +71,5 @@ https://ddupas.github.io/msfish/
 	It uses fetch to get the msfish.db database (also located on GitHub).
 	A live server like npx http-server is only needed for testing
 - ### bulma, bulmaswatch
- - css layout and styles 
+	css layout and styles 
 
