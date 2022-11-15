@@ -7,12 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>msfish</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
 <style>
   h3,h2,h1 {color:red;}
   td {font-size:.7em;}
+	.whiteb {background:white;color:#363636;}
+	.lightb {background:lightgray;color:#363636;}
+	.graygray {background:gray;color:#363636;}
+	.grayb {background:darkgray;color:#363636;}
+	.darkb {background:#363636;color:white;}
+	.blackb {background:black; color:white;}
+	table, div, nav, a.panel-block {
+		background:inherit!important;
+		color:inherit!important;
+	}
 </style>
-	
 <link rel="icon" href=
 "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
                       <text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
@@ -196,9 +204,14 @@ window.listp = () => {
 window.setInterval(() => {window.listp();window.showlastsquad()},1000 * 60);
 window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
 
+window.changebodyclass = (newclassname) => {
+	const body = document.querySelector("body");
+	body.className = newclassname;
+}	
+	
 </script>
 </head>
-<body >
+<body class="darkb">
 	<div class="columns is-mobile">
 	<div class="column is-one-fifth">
 		<div class="block">
@@ -217,6 +230,14 @@ window.setInterval(() => {window.updatedb();},2.5 * 1000 * 60);
 	<div class="column ">
 		<div class="block" id="killschart"></div>
 		<div class="block " id="lastsquad"></div>
+		<div class="block" id="colorselect">
+			<a onclick="changebodyclass('whiteb')" class="button is-white">White</a>
+			<a onclick="changebodyclass('lightb')" class="button is-light">Light</a>
+			<a onclick="changebodyclass('grayb')" class="button grayb">Gray</a>
+			<a onclick="changebodyclass('graygray')" class="button graygray">Graygray</a>
+			<a onclick="changebodyclass('darkb')" class="button is-dark">Dark</a>
+			<a onclick="changebodyclass('blackb')" class="button is-black">Black</a>
+		</div>
 	</div>
 </div>
 
