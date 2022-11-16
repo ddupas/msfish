@@ -71,15 +71,15 @@ window.showlastsquad = async () => {
 	ele.innerHTML = innerhtml;
 };
 
-window.addEventListener('load', async function() {
+window.addEventListener('load', async () => {
 	await window.updatedb();
-	window.listp();
-	window.showcharts(window.results[0][1]);
-	window.showlastsquad();
 	await window.bulmaSwatchBookmarklet('colorselect');
 	document.querySelector('#theme-switcher select').value = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
 	const css = document.getElementById('bulmaswatch-css');
 	css.href = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
+	window.showlastsquad();
+	window.listp();
+	window.showcharts(window.results[0][1]);
 });
 
 window.updatedb = async () =>{
@@ -244,6 +244,9 @@ window.changebodyclass = (newclassname) => {
 			<a onclick="changebodyclass('graygray')" class="button graygray">Graygray</a>
 			<a onclick="changebodyclass('darkb')" class="button is-dark">Dark</a>
 			<a onclick="changebodyclass('blackb')" class="button is-black">Black</a>
+			</div>
+			<div class="block">
+				<a onclick="document.documentElement.requestFullscreen();" class="button is-black">fullscreen</a>
 			</div>
 		</div>
 	</div>
