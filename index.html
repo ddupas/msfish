@@ -261,7 +261,7 @@ window.changebodyclass = (newclassname) => {
 			<a onclick="changebodyclass('blackb')" class="button is-black">Black</a>
 			</div>
 			<div class="block">
-				<a onclick="document.documentElement.requestFullscreen();" class="button is-black">fullscreen</a>
+				<a onclick="window.getComputedStyle(document.documentElement);document.documentElement.requestFullscreen();" class="button is-black">fullscreen</a>
 			</div>
 		</div>
 	</div>
