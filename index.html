@@ -76,7 +76,10 @@ window.addEventListener('load', async function() {
 	window.listp();
 	window.showcharts(window.results[0][1]);
 	window.showlastsquad();
-	window.bulmaSwatchBookmarklet('colorselect');
+	await window.bulmaSwatchBookmarklet('colorselect');
+	document.querySelector('#theme-switcher select').value = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
+	const css = document.getElementById('bulmaswatch-css');
+	css.href = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
 });
 
 window.updatedb = async () =>{
@@ -216,7 +219,7 @@ window.changebodyclass = (newclassname) => {
 </head>
 <body class="none">
 	<div class="columns is-mobile">
-	<div class="column is-one-fifth">
+	<div class="column is-one-third-mobile is-one-quarter-tablet is-one-fifth-desktop">
 		<div class="block">
 		<a href="https://github.com/ddupas/msfish">
 

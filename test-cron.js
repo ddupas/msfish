@@ -13,6 +13,8 @@ const nextsnap = (lastseen) => {
 };
 
 async function checkforupdates() {
+	console.log(`checkforupdates: ${new Date().toLocaleString()}`);
+	try {
 	const fs = require('fs');
 	const initSqlJs = require('./node_modules/sql.js/dist/sql-wasm.js');
 	const filebuffer = fs.readFileSync('./msfish.db');
@@ -21,33 +23,35 @@ async function checkforupdates() {
 		const sqlstmnt = 'select * from playerstatus';
 		let result = '';
 		try { result = db.exec(sqlstmnt); }
-		catch (e) { console.log(e); }
+		catch (e) { console.log(e); return; }
 		result[0]['values'].forEach(async element => {
 			const name = element[0];
 			const pid = element[1];
 			const lastseen = element[2];
 			const lastsnap = element[3];
 			if (lastsnap > nextsnap(lastseen)) {
-				console.log(`update ${name} ${new Date()}`);
-				await snapshotone(pid);
+				console.log(`checkforupdates: ${name}`);
+				try { await snapshotone(pid); }
+				catch (e) { console.log(e); return;}
 			}
-			// console.log(`${name} ${Date.now()}  ${lastseen} ${lastsnap}  ${nextsnap(lastseen)}`);
 		});
 	});
-}
+} catch (e) { console.log(e); return;}}
 
 
 schedule.scheduleJob('56 6 * * *', async function() {
-	await snapshotall();
-	console.log(`test-cron snapshotall: ${new Date()}`);
-	await gitpushdb();
-	console.log(`test-cron gitpushdb: ${new Date()}`);
-
+	try {
+		await snapshotall();
+	} catch (e) { console.log(e); return;}
+	try {
+		await gitpushdb();
+	} catch (e) { console.log(e); return; }
 });
 
 schedule.scheduleJob('41 5 * * *', async function() {
-	await updateplayers();
-	console.log(`test-cron udateplayers: ${new Date()}`);
+	try {
+		await updateplayers();
+	} catch (e) { console.log(e); return;}
 });
 
 const startTime = new Date(Date.now() + 5000);
@@ -58,11 +62,14 @@ schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/30 * * * * *' },
 });
 
 schedule.scheduleJob('*/5 * * * *', async function() {
-	await gitpushdb();
-	console.log(`gitpushdb: ${ Date.now() }`);
+	try {
+		await gitpushdb();
+	} catch (e) { console.log(e); return; }
 });
 
 schedule.scheduleJob({ rule: '*/30 * * * * *' }, async function() {
-	await checkforupdates();
+	try {
+		await checkforupdates();
+	} catch (e) { console.log(e); return; }
 });
 
