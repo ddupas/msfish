@@ -4,13 +4,12 @@
 	
 <meta charset="utf-8">
 <meta http-equiv="Cache-control" content="no-cache">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width-20, initial-scale=.95">
 <title>msfish</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <script src="./bookmarklet.js"></script>
 <style>
   h3,h2,h1 {color:red;}
-  td {font-size:.7em;}
 	.whiteb {background:white;color:#363636;}
 	.lightb {background:lightgray;color:#363636;}
 	.graygray {background:gray;color:#363636;}
@@ -80,6 +79,11 @@ window.addEventListener('load', async () => {
 	window.showlastsquad();
 	window.listp();
 	window.showcharts(window.results[0][1]);
+	/*var scale = 'scale(.9)';
+document.body.style.webkitTransform =  scale;    
+ document.body.style.msTransform =   scale;      
+ document.body.style.transform = scale;    
+ */
 });
 
 window.updatedb = async () =>{
