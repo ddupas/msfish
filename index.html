@@ -26,8 +26,8 @@ body {
 	.lightb {background:lightgray;color:#363636;}
 	.graygray {background:gray;color:#363636;}
 	.grayb {background:darkgray;color:#363636;}
-	.darkb {background:#363636;color:white;}
-	.blackb {background:black; color:white;}
+	.darkb {background:#363636;color:lightgray;}
+	.blackb {background:black; color:gray;}
 	table, div, nav, a.panel-block {
 		background:inherit!important;
 		color:inherit!important;
@@ -88,10 +88,17 @@ window.addEventListener('load', async () => {
 	document.querySelector('#theme-switcher select').value = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
 	const css = document.getElementById('bulmaswatch-css');
 	css.href = "https://unpkg.com/bulmaswatch@0.8.1/cosmo/bulmaswatch.min.css";
+	changebodyclass('blackb')
 	window.showlastsquad();
 	window.listp();
 	window.showcharts(window.results[0][1]);
 });
+
+window.onresize = () => {
+	window.showlastsquad();
+	window.listp();
+	window.showcharts(window.results[0][1]);
+}
 
 window.updatedb = async () =>{
     const sqlPromise = initSqlJs({
