@@ -35,7 +35,6 @@ async function checkforupdates() {
 				catch (e) { console.log(e); return;}
 			}
 		});
-		sqlstmnt.free();
 	});
 } catch (e) { console.log(e); return;}}
 
