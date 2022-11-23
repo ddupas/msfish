@@ -48,9 +48,9 @@ async function updateplayers() {
 			}
 			console.log('Close the database connection.');
 		});
-	}).catch(Error e) {
+	}).catch((err) => {
 		console.log(`ERROR: updateplayers ${new Date()}`);
-	};
+	});
 }
 
 module.exports.updateplayers = updateplayers;
