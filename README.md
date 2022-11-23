@@ -24,8 +24,10 @@ https://ddupas.github.io/msfish/
 ## todo
 
 - [ ] delete duplicates, delete the middle of 3 or more duplicates, keeping each end.
+- [ ] ensure all .then has .catch 
+- [ ] see if there is a close function your misssing or can scope db (out of mem error)
 - [ ] set the members' discord id
-- [    ] get medal details from the hover pop up
+- [ ] get medal details from the hover pop up
 - [ ] run as service on termux / systemd
 - [ ] begginer install links (node,sqlite,git) and sample config.json
 
