@@ -4,12 +4,12 @@
 Msfish is a statistics bot for the War Fish War Brokers squad. This bot collects stats from
 stats.warbrokers.io and displays some charts and medals. It
 is also a discord bot. Msfish was created to answer the question
-of who is active and who is winning medals on warbrokers.
+of who is active and who is winning medals on Warbrokers.
 
 ## gains
 At the start of the project DB Browser for Sqlite was
 indispensable but as I got more comfortable the less I needed it. Now, 
-I prefer to cat a file into sqlite3.
+a  I prefer to catfile into sqlite3.
 
 ```sh
 > cat test.sql | sqlite3 msfish.db -markdown
@@ -22,13 +22,11 @@ opening chrome://inspect.
 https://ddupas.github.io/msfish/
 
 ## todo
+- [ ] alter tables to get rid of unused columns
 - [ ] delete duplicates, delete the middle of 3 or more duplicates, keeping each end.
 - [ ] ensure all .then has .catch 
-- [ ] see if there is a close function your misssing or can scope db (out of mem error)
-- [ ] set the members' discord id
 - [ ] get medal details from the hover pop up
-- [ ] run as service on termux / systemd
-- [ ] begginer install links (node,sqlite,git) and sample config.json
+- [ ] beginner install links (node,sqlite,git) and sample config.json
 
 ## technology stack with an explanation 
 
@@ -63,6 +61,9 @@ https://ddupas.github.io/msfish/
     solution is to go to their GitHub page, find releases and unzip.
 	On the front end we use a CDN: see index.html for the
     2 step initialization code.
+    *** update ***
+    sql.js on the server side had a fierce memory leak i could not 
+    figure out now only use sql.js for index.html on client
 - ### highcharts.com for the chart
 	We are still digging into the properties, but so far it's been interesting. 
 	Highcharts are heavily dependent on Moment.js.
@@ -73,4 +74,5 @@ https://ddupas.github.io/msfish/
 	A live server like npx http-server is only needed for testing
 - ### bulma, bulmaswatch
 	css layout and styles 
-
+- ### pm2
+    used to create systemd service and very useful monitoring tool
