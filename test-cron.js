@@ -2,7 +2,7 @@ const schedule = require('node-schedule');
 const { snapshotall, snapshotone } = require('./snapshotall');
 const { updateplayers } = require('./updateplayers');
 const { gitpushdb } = require('./gitpushdb');
-
+const { deletedup } = require('./deletedup');
 const SQLite3 = require('node-sqlite3');
 const db = new SQLite3('msfish.db');
 
@@ -36,6 +36,14 @@ async function checkforupdates() {
 	}
 	catch (e) { console.log(e); return;}
 }
+
+
+schedule.scheduleJob('15 6 * * *', async function() {
+	try {
+		await deletedup();
+	}
+	catch (e) { console.log(e); return;}
+});
 
 
 schedule.scheduleJob('56 6 * * *', async function() {
@@ -76,4 +84,3 @@ schedule.scheduleJob({ rule: '*/30 * * * * *' }, async function() {
 	}
 	catch (e) { console.log(e); return; }
 });
-
