@@ -22,8 +22,6 @@ opening chrome://inspect.
 https://ddupas.github.io/msfish/
 
 ## todo
-- [ ] sql.js out of memory error 
-    - PM2 process monitor + increase mem??
 - [ ] delete duplicates, delete the middle of 3 or more duplicates, keeping each end.
 - [ ] ensure all .then has .catch 
 - [ ] see if there is a close function your misssing or can scope db (out of mem error)
