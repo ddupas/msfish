@@ -1,21 +1,21 @@
-/*
-select * from
-(select name,date,kills, count(kills) as dupcount from snapshots
-group by kills, name)
-where dupcount>2
-as t1
-join 
-select row_id from snapshots
-as t2
-on t1.kills=t2.kills
-*/
+delete from snapshots where rowid in
+(
+select rowid from (
 select * from (
-select pid, kills, count(kills) as dupcount from snapshots 
-group by kills, pid )
-as a
-/*
-JOIN
-snapshots as b
-on
-a.pid = b.pid
-*/
+
+select * from
+(select pid, kills, count(kills) as ck, max(date) as maxd ,min(date) as mind
+from snapshots
+group by pid,kills
+having
+ck>2) as s1
+join
+(select date,pid,kills,rowid from snapshots)
+as s3
+on s1.pid=s3.pid and s1.kills=s3.kills
+)
+where
+date<>maxd and date<>mind
+)
+);
+vacuum;
