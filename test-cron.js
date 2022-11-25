@@ -32,6 +32,7 @@ async function checkforupdates() {
 				catch (e) { console.log(e); return;}
 			}
 		});
+		await db.close();
 	}
 	catch (e) { console.log(e); return;}
 }
