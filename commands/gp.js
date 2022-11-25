@@ -1,7 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
-const SQLite3 = require('node-sqlite3');
 const { ri } = require('../emoji');
-const db = new SQLite3('msfish.db'); // a-was
+
+
+const SQLite3 = require('node-sqlite3');
+const db = new SQLite3('msfish.db');
+
 
 async function dosend(interact) {
 	let tosend = '';
