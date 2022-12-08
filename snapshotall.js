@@ -104,11 +104,12 @@ async function getpids(pids) {
 }
 
 async function snapshotall() {
-	getpids([]).then(pids => {
-		pids.forEach(pid => getpage({ pid })
+	getpids([]).then(async pids => {
+		pids.forEach(async  pid => { await getpage({ pid })
 			.then(snap => parsepage(snap))
 		//    .then(snap => showparsed(snap))
-			.then(snap => addtodb(snap)));
+			.then(snap => addtodb(snap))}
+		);
 	});
 }
 module.exports.snapshotall = snapshotall;
