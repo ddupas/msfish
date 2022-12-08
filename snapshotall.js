@@ -108,8 +108,11 @@ async function snapshotall() {
 		pids.forEach(async  pid => { await getpage({ pid })
 			.then(snap => parsepage(snap))
 		//    .then(snap => showparsed(snap))
-			.then(snap => addtodb(snap))}
-		);
+			.then(snap => addtodb(snap))
+			.catch(e =>{
+				console.log(`snapshotall error: ${e}`)
+			})
+		});
 	});
 }
 module.exports.snapshotall = snapshotall;
