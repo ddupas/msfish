@@ -13,5 +13,9 @@ module.exports = {
   }, {
     cwd: '/home/darrell/msfish/',
     script: '/home/darrell/msfish/test-cron.js',
-  }]
+  },{
+      cwd: '/home/darrell/fruitfish/',
+      script: 'index.js',
+    }
+  ]
 };

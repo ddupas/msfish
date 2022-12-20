@@ -76,3 +76,13 @@ https://ddupas.github.io/msfish/
 	css layout and styles 
 - ### pm2
     used to create systemd service and very useful monitoring tool
+- ### logind prevent suspend on laptop lid closed
+
+```txt
+/etc/systemd/logind.conf
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore
+```
+
+	

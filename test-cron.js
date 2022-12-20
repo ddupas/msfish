@@ -46,7 +46,7 @@ schedule.scheduleJob('15 6 * * *', async function() {
 });
 
 
-schedule.scheduleJob('56 6 * * *', async function() {
+schedule.scheduleJob('31 5 * * *', async function() {
 	try {
 		await snapshotall();
 	}
@@ -57,7 +57,7 @@ schedule.scheduleJob('56 6 * * *', async function() {
 	catch (e) { console.log(e); return; }
 });
 
-schedule.scheduleJob('41 5 * * *', async function() {
+schedule.scheduleJob('21 5 * * *', async function() {
 	try {
 		await updateplayers();
 	}
