@@ -1,0 +1,10 @@
+pm2.link.secret.sh
+config.json
+id_ed25519
+known_hosts
+node_modules/
+msfish.db-journal
+.pm2/
+package-lock.json
+*.kate-swp
+*.tgz
