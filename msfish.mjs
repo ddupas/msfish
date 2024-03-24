@@ -1,17 +1,17 @@
 'use strict';
 import {
     deletedup
-} from './deletedup';
+} from './deletedup.mjs';
 import {
     pushdb,
     pulldb
-} from './gitpushdb';
+} from './gitpushdb.mjs';
 import {
     checkforupdates
-} from './snapshotnext';
+} from './snapshotnext.mjs';
 import {
     updateplayers
-} from './updateplayers';
+} from './updateplayers.mjs';
 import {
     scheduleJob
 } from 'node-schedule';
