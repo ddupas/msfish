@@ -75,7 +75,7 @@ async function init() {
         try {
             await updateplayers();
         } catch (e) {
-            log('updateplayers fail');
+            log('updateplayers fail' + e);
         }
     });
 

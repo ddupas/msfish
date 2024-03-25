@@ -2,8 +2,9 @@
 
 import { JSDOM } from 'jsdom';
 
-import pkg from 'sqlite3';
-const { sqlite3 } = pkg;
+import sqlite3 from 'sqlite3';
+
+
 
 
 

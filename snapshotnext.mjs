@@ -1,8 +1,7 @@
 'use strict';
 
 import { JSDOM } from 'jsdom';
-import pkg from 'sqlite3';
-const { sqlite3 } = pkg;
+import sqlite3 from 'sqlite3';
 
 function log(l) {
     console.log('snapshotnext: ' + l);
