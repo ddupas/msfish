@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 
 const once = true;
@@ -6,9 +5,9 @@ const name = 'ready';
 
 async function invoke(client) {
 	const commands = fs
-		.readdirSync('./events/commands')
-		.filter((file) => file.endsWith('.js'))
-		.map((file) => file.slice(0, -3));
+		.readdirSync('./discord-bot/events/commands')
+		.filter((file) => file.endsWith('.mjs'))
+		.map((file) => file.slice(0, -4));
 
 	const commandsArray = [];
 

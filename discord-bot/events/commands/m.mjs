@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { ri, re } = require('../emoji');
-const sqlite3 = require('sqlite3').verbose();
-
+import { SlashCommandBuilder } from 'discord.js';
+import { ri } from '../../../emoji.mjs'
+import sqlite3 from 'sqlite3';
 
 const selectstmt =
     `select * from 
@@ -29,15 +28,17 @@ async function mtext() {
 	});
 }
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('m')
-		.setDescription('Metallurgy - Display daily medals'),
-	async execute(interaction) {
-		await interaction.deferReply();
-		const dmtext = await mtext();
-		await interaction.editReply(dmtext);
+function create() {
+	const command = new SlashCommandBuilder()
+	.setName('m')
+	.setDescription('Metallurgy - Display daily medals');
+	return command.toJSON();
+}
 
-	},
-};
+async function invoke(interaction) {
+	await interaction.deferReply();
+	const dmtext = await mtext();
+	await interaction.editReply(dmtext);
+}
 
+export { create, invoke };

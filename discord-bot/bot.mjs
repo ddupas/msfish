@@ -1,5 +1,5 @@
 
-import {} from 'dotenv/config';
+import 'dotenv/config';
 import fs from 'fs';
 import { Client, GatewayIntentBits } from 'discord.js';
 
@@ -8,8 +8,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // Fetch all js files in ./events
 const events = fs
-	.readdirSync('./events')
-	.filter((file) => file.endsWith('.js'));
+	.readdirSync('./discord-bot/events')
+	.filter((file) => file.endsWith('.mjs'));
 
 // Check for an event and execute the corresponding file in ./events
 for (let event of events) {
@@ -28,5 +28,4 @@ for (let event of events) {
 		});
 }
 
-// Login with the environment data
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.token);

@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { ri, re } = require('../emoji');
-
-const sqlite3 = require('sqlite3').verbose();
+import { SlashCommandBuilder } from 'discord.js';
+import { ri } from '../../../emoji.mjs'
+import sqlite3 from 'sqlite3';
 
 async function dosend(interact) {
   return new Promise((resolve,reject) => {
@@ -48,17 +47,20 @@ async function dosend(interact) {
 
 }
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('last')
+function create() {
+	const command = new SlashCommandBuilder()
+	.setName('last')
 		.setDescription('Stats for last N days - kills, deaths, kd, wins, br wins')
 		.addNumberOption(option =>
 			option.setName('days')
-				.setDescription('number of days to go back 1.0 default')),
-	async execute(interaction) {
-		await interaction.deferReply();
-		const send = await dosend(interaction);
-		await interaction.editReply('‎ ' + ` ${ri('Msfish') + send }`);
-	},
-};
+				.setDescription('number of days to go back 1.0 default'))
+	return command.toJSON();
+}
 
+async function invoke(interaction) {
+	await interaction.deferReply();
+	const send = await dosend(interaction);
+	await interaction.editReply('‎ ' + ` ${ri('Msfish') + send}`);
+}
+
+export { create, invoke };
