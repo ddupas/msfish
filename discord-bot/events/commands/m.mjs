@@ -13,7 +13,6 @@ const selectstmt =
 
 
 async function mtext() {
-	console.log('mtext');
 	return new Promise(async (resolve, reject) => {
 		let tosend = ri('Daily Medals') + '\n```txt\n';
 		const db_m_ro = new sqlite3.Database('msfish.db',sqlite3.OPEN_READONLY);
