@@ -34,7 +34,8 @@
     "pm2-nodaemon": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "http-server": "http-server -o -c-1 -p 8080 > /dev/null 2>&1 ",
     "npm-update": "npm update --save",
-    "renderdotcom": "npm run discord-bot & npm run msfish & npm run http-server"
+    "renderdotcom": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
+    "renderdotcomx": "npm run discord-bot & npm run msfish & npm run http-server"
   },
   "repository": {
     "type": "git",
