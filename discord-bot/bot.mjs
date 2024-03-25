@@ -1,5 +1,5 @@
 
-import 'dotenv/config';
+import config from './config.json' assert { type: 'json' };
 import fs from 'fs';
 import { Client, GatewayIntentBits } from 'discord.js';
 
@@ -28,4 +28,4 @@ for (let event of events) {
 		});
 }
 
-client.login(process.env.token);
+client.login(config.token);
