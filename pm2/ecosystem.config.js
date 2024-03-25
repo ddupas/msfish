@@ -1,28 +1,14 @@
 
 module.exports = {
   apps : [{
-    script: 'test-discordlogin.js',
+    script: 'discord-bot/bot.mjs',
     node_args: '--no-warnings',
     cron_restart: '20,40,59 * * * *',
   },
   {
-    script: 'test-updateplayers.js',
+    script: 'msfish.mjs',
     node_args: '--no-warnings',
     cron_restart: '21 11 * * *',
-  },
-  {
-    script: 'test-next.js',
-    node_args: '--no-warnings',
-  },
-  {
-    name: 'gitpushdb',
-    node_args: '--no-warnings',
-    script: 'test-gitpushdb.js',
-  },
-  {
-    script: 'test-deletedup.js',
-    node_args: '--no-warnings',
-    cron_restart: '15 10 * * *',
   },
   {
     name: 'http-server',
