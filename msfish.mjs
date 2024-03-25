@@ -34,6 +34,7 @@ await init();
 log('init done');
 
 async function init() {
+    
     log('pre pulldb');
     try {
         await pulldb();
@@ -41,7 +42,9 @@ async function init() {
         log(e);
     }
     log('post pulldb')
+    
     await sleep(50000);
+    
     log('adding schedules');
 
     scheduleJob('20 10 * * *', async function() {
@@ -52,7 +55,7 @@ async function init() {
         }
     });
 
-    schedule.scheduleJob('4,19,24,29,34,39,44,49,54,59 * * * *', async function() {
+    scheduleJob('4,19,24,29,34,39,44,49,54,59 * * * *', async function() {
         try {
             await pushdb();
         } catch (e) {
@@ -60,7 +63,7 @@ async function init() {
         }
     });
 
-    schedule.scheduleJob('*/120 * * * * *', async function() {
+    scheduleJob('*/120 * * * * *', async function() {
         try {
             await checkforupdates();
         } catch (e) {
@@ -68,7 +71,7 @@ async function init() {
         }
     });
 
-    schedule.scheduleJob('26 11 * * *', async function() {
+    scheduleJob('26 11 * * *', async function() {
         try {
             await updateplayers();
         } catch (e) {
