@@ -1,22 +1,27 @@
 import schedule from 'node-schedule';
 import { discordlogin } from './bot.mjs';
 
+function log(l) {
+	console.log('manage-bot: ' + l);
+}
+
 let client = null;
 
-schedule.scheduleJob('20,40,59 * * * *', function() {
-
-/*
-client = null
-gc // set node options to allow force gc
-client = discordlogin();
-
-*/
-
+// restart discord bot every 20 minutes
+schedule.scheduleJob('20,40,59 * * * *', async function() {
+	log('restart schedule added');
 	try {
-		throw new Error("??");
-		
+		client = null;
+		if (global.gc) {
+			global.gc();
+		} else {
+			console.log('Garbage collection unavailable.  Pass --expose-gc '
+			  + 'when launching node to enable forced garbage collection.');
+		}
+		await sleep(4999);
+		client = discordlogin();
 	}
-	catch (e) { console.log("scheduled restart"); return; }
+	catch (e) { log("restart error"); }
 });
 
 
