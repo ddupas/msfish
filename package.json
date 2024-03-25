@@ -17,19 +17,28 @@
     "eslint": "^8.57.0",
     "js-beautify": "^1.15.1"
   },
+  "type":"module",
+  "imports": {
+		"#events/*": "./discord-bot/events/*",
+		"#commands/*": "./discord-bot/events/commands/*.mjs"
+	},
   "scripts": {
+
     "deploy-commands": "node deploy-commands.js",
+    "discord-bot" : "node discord-bot/bot.mjs",
+    
     "test-deletedup": "node test-deletedup.js",
     "test-discordlogin": "node test-discordlogin.js",
     "test-gitpushdb": "node test-gitpushdb.js",
     "test-next": "node test-next.js",
     "test-snapshot": "node test-snapshot.js",
     "test-updateplayers": "node test-updateplayers.js",
-    "pkill-node": "pkill node",
+
+    "msfish" : "node msfish.mjs",
     "pm2-nodaemon": "pm2 stop all || pm2 --no-daemon start pm2/ecosystem.config.js",
     "http-server": "http-server -o -c-1 -p 8080 > /dev/null 2>&1 ",
     "npm-update": "npm update --save",
-    "renderdotcom": "npm run test-discordlogin & npm run test-next & npm run test-gitpushdb & npm run test-deletedup & npm run test-updateplayers & npm run http-server"
+    "renderdotcom": "npm run discord-bot & npm run msfish & npm run http-server"
   },
   "repository": {
     "type": "git",
