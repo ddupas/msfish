@@ -1,9 +1,12 @@
-const fs = require('node:fs');
-const path = require('node:path');
+'use strict';
+
+import fs from 'node:fs';
+import path from 'node:path';
+
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
-function discordlogin() {
+export function discordlogin() {
 
 	// Create a new client instance
 	const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -47,4 +50,3 @@ function discordlogin() {
 	client.login(token);
 	return client;
 }
-module.exports.discordlogin = discordlogin;
