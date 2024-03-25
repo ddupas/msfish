@@ -1,6 +1,7 @@
 'use strict';
-const schedule = require('node-schedule');
-const { discordlogin } = require('../discordlogin');
+
+import schedule from 'node-schedule';
+import discordlogin from './discordlogin.js';
 
 let client = null;
 
@@ -16,7 +17,7 @@ schedule.scheduleJob('20,40,59 * * * *', function() {
 
 async function init() {
 	console.log(1);
-	await sleep(50000);
+	await sleep(4999);
 	console.log(2);
 	try {
 		client = discordlogin();
