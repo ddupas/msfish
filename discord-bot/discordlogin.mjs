@@ -3,8 +3,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
+
+const config = await import("./config.json", {
+	assert: { type: "json" },
+  });
+
+const __dirname = import.meta.dirname;
 
 export function discordlogin() {
 
@@ -47,6 +52,6 @@ export function discordlogin() {
 		}
 	});
 
-	client.login(token);
+	client.login(config.token);
 	return client;
 }

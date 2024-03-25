@@ -8,3 +8,4 @@ msfish.db-journal
 package-lock.json
 *.kate-swp
 *.tgz
+.env

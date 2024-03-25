@@ -1,7 +1,7 @@
 'use strict';
 
 import schedule from 'node-schedule';
-import discordlogin from './discordlogin.js';
+import { discordlogin } from './discordlogin.mjs';
 
 let client = null;
 
