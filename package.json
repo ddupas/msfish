@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "discord.js": "^14.14.1",
-    "dotenv": "^16.4.5",
     "http-server": "^14.1.1",
     "jsdom": "^24.0.0",
     "node-emoji": "^2.1.3",
@@ -17,24 +16,21 @@
     "eslint": "^8.57.0",
     "js-beautify": "^1.15.1"
   },
-  "type":"module",
+  "type": "module",
   "imports": {
-		"#events/*": "./discord-bot/events/*",
-		"#commands/*": "./discord-bot/events/commands/*.mjs"
-	},
+    "#events/*": "./discord-bot/events/*",
+    "#commands/*": "./discord-bot/events/commands/*.mjs"
+  },
   "scripts": {
-
     "deploy-commands": "node deploy-commands.js",
-    "discord-bot" : "node discord-bot/bot.mjs",
-    
+    "discord-bot": "node discord-bot/bot.mjs",
     "test-deletedup": "node test-deletedup.js",
     "test-discordlogin": "node test-discordlogin.js",
     "test-gitpushdb": "node test-gitpushdb.js",
     "test-next": "node test-next.js",
     "test-snapshot": "node test-snapshot.js",
     "test-updateplayers": "node test-updateplayers.js",
-
-    "msfish" : "node msfish.mjs",
+    "msfish": "node msfish.mjs",
     "pm2-nodaemon": "pm2 stop all || pm2 --no-daemon start pm2/ecosystem.config.js",
     "http-server": "http-server -o -c-1 -p 8080 > /dev/null 2>&1 ",
     "npm-update": "npm update --save",
