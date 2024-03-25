@@ -1,9 +1,9 @@
 
 module.exports = {
   apps : [{
-    script: 'discord-bot/bot.mjs',
-    node_args: '--no-warnings',
-    cron_restart: '20,40,59 * * * *',
+    script: 'discord-bot/manage-bot.mjs',
+    node_args: '--no-warnings --expose-gc',
+    cron_restart: '19,39,59 * * * *',
   },
   {
     script: 'msfish.mjs',
