@@ -1,5 +1,3 @@
-'use strict';
-
 import schedule from 'node-schedule';
 import { discordlogin } from './discordlogin.mjs';
 
