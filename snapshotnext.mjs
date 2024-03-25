@@ -17,19 +17,17 @@ select * from getnext `;
     const results = [];
     const db_check_ro = new sqlite3.Database('msfish.db',sqlite3.OPEN_READONLY);
     
-    db_check_ro.get(sqlstmnt,[],(err,result) => {
+    db_check_ro.get(sqlstmnt,[], async (err,result) => {
         if (err) {
             log("[error]: " + err)
             return;
         }
 	// log(JSON.stringify(result).Name);
         if (result && result.pid ) {
-           snapshotone(result.pid);
+           await snapshotone(result.pid);
         }
     });
-
-    // do i have to close it?
-
+	db_check_ro.close();
 }
 
 async function getpage(snap) {
@@ -140,12 +138,16 @@ async function addtodb(snap) {
 }
 
 export async function snapshotone(pid) {
-	// log('snapshotone');
-	getpage({pid})
+	log('snapshotone');
+	return new Promise( async (resolve, reject) => {
+		getpage({pid})
 		.then(snap => parsepage(snap))
 		.then(snap => addtodb(snap))
 		.then(snap => log( JSON.stringify(snap)))
 		.catch(e =>{
 			log(JSON.stringify(e))
+			reject(e)
 		});
+		resolve(this);
+	});
 }
