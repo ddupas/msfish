@@ -23,7 +23,7 @@
   },
   "scripts": {
     "deploy-commands": "node deploy-commands.js",
-    "discord-bot": "node discord-bot/bot.mjs",
+    "discord-bot": "node discord-bot/manage-bot.mjs",
     "test-deletedup": "node test-deletedup.js",
     "test-discordlogin": "node test-discordlogin.js",
     "test-gitpushdb": "node test-gitpushdb.js",
