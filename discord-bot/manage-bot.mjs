@@ -1,9 +1,16 @@
 import schedule from 'node-schedule';
-import { discordlogin } from './discordlogin.mjs';
+import { discordlogin } from './bot.mjs';
 
 let client = null;
 
 schedule.scheduleJob('20,40,59 * * * *', function() {
+
+/*
+client = null
+gc // set node options to allow force gc
+client = discordlogin();
+
+*/
 
 	try {
 		throw new Error("??");
