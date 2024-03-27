@@ -219,13 +219,20 @@ window.getlastcommit = async function() {
   document.querySelector('#lastcommit').textContent = data[0].payload.commits[0].message;
 };
 
-const demo1 = async function() {
+const update_msfish = async function() {
+    
     await window.updatedb();
     window.listp();
     window.showlastsquad();
     window.showcharts();
     window.getlastcommit();
+    log('keep msfish alive ' + new Date() );
+    setTimeout(update_msfish, (60000 + getRandomInt(30000)+ getRandomInt(30000)) );   
 };
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 //log("Loading and initializing sqlite3 module...");
 self.sqlite3InitModule({
@@ -233,9 +240,8 @@ self.sqlite3InitModule({
     printErr: error
 }).then(function(sqlite3) {
     window.sqlite3 = sqlite3;
-    //log("Done initializing. Running msfish...");
     try {
-        demo1();
+        update_msfish();
     } catch (e) {
         error("Exception:", e.message);
     }
