@@ -1,4 +1,3 @@
-'use strict';
 import {
     deletedup
 } from './deletedup.mjs';

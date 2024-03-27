@@ -1,5 +1,3 @@
-'use strict';
-
 import { random } from 'node-emoji';
 
 export function re() {

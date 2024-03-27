@@ -1,5 +1,3 @@
-'use strict';
-
 const { snapshotone } = require('../snapshotnext');
 
 // Lemon

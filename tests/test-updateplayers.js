@@ -1,4 +1,3 @@
-'use strict';
 const { updateplayers } = require('../updateplayers');
 const schedule = require('node-schedule');
 const  { parseArgs } = require('node:util');

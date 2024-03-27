@@ -14,7 +14,9 @@ module.exports = {
     name: 'http-server',
     script: 'node_modules/http-server/bin/http-server',
     args: '-o -c-1 -p 8080',
-  }
-
-  ]
+  },
+  {
+    name: 'keepalive',
+    script: 'keepalive.mjs',
+  }]
 };

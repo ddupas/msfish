@@ -1,5 +1,3 @@
-'use strict';
-
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process'
 const promise_exec = promisify(exec);

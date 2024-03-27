@@ -1,4 +1,3 @@
-'use strict'
 const { pushdb,pulldb } = require('../gitpushdb');
 const schedule = require('node-schedule');
 const  { parseArgs } = require('node:util');

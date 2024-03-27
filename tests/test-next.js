@@ -1,4 +1,3 @@
-'use strict';
 const { checkforupdates } = require('../snapshotnext');
 const schedule = require('node-schedule');
 const  { parseArgs } = require('node:util');
