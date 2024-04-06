@@ -12,23 +12,23 @@ FROM snapshots GROUP BY pid) AS a
 JOIN snapshots AS b ON
 a.pid = b.pid AND a.kills = b.kills)  
 GROUP BY pid ORDER BY miliago</sql><sql name="update from last played"> select pid, date from (
- select pid, date,
+ select pid, date, lsmiliago,
 --     miliago as lastplayedago, 
 --     lsmiliago as lastcheckedago, 
 --    miliago - lsmiliago as difference,
 --    miliago / 4 as updateinterval,
      miliago / 4 - lsmiliago as nextupdatein
- from playerstatus where lsmiliago &gt; 300000 ) where ( nextupdatein &lt; 0 or nextupdatein &gt; 2700000)</sql><sql name="create view getnext ">drop view getnext;
+ from playerstatus where lsmiliago &gt; 300000 ) where ( nextupdatein &lt; 0 or lsmiliago &gt; 2700000)</sql><sql name="create view getnext ">drop view getnext;
 create view getnext as 
   
  select pid, date from (
- select pid, date,
+ select pid, date, lsmiliago,
 --     miliago as lastplayedago, 
 --     lsmiliago as lastcheckedago, 
 --    miliago - lsmiliago as difference,
 --    miliago / 4 as updateinterval,
      miliago / 4 - lsmiliago as nextupdatein
- from playerstatus where lsmiliago &gt; 300000 ) where ( nextupdatein &lt; 0 or nextupdatein &gt; 2700000)
+ from playerstatus where lsmiliago &gt; 300000 ) where ( nextupdatein &lt; 0 or lsmiliago &gt; 2700000)
   
 limit 1</sql><sql name="SQL 12">select * from getnext</sql><sql name="create tables">CREATE TABLE &quot;players&quot; (
 	&quot;id&quot;	TEXT NOT NULL,
@@ -138,4 +138,4 @@ date&lt;&gt;maxd and date&lt;&gt;mind
 vacuum;
 </sql><sql name="clear medals">update snapshots set Medals = null;
 vacuum;
-</sql><current_tab id="7"/></tab_sql></sqlb_project>
+</sql><current_tab id="2"/></tab_sql></sqlb_project>
