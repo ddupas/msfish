@@ -216,7 +216,8 @@ window.showcharts = (id) => {
 window.getlastcommit = async function() {
   const response = await fetch ('https://api.github.com/users/ddupas/events/public');
   const data = await response.json();
-  document.querySelector('#lastcommit').textContent = data[0].payload.commits[0].message;
+    const msg = data[0].payload.commits[0].message;
+  document.querySelector('#lastcommit').textContent = msg + " " + window.emojis[msg]; 
 };
 
 const update_msfish = async function() {

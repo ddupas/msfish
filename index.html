@@ -78,6 +78,16 @@ body {
 
 
 
+<script>
+fetch("https://unpkg.com/unicode-emoji-json@0.6.0/data-by-emoji.json")
+.then(res => res.json())
+.then((res) => {
+  
+  window.emojis = res;
+  // do the rest here
+});
+</script>
+
     <script src="https://unpkg.com/@sqlite.org/sqlite-wasm@3.45.1-build1/sqlite-wasm/jswasm/sqlite3.js"> </script>
     <script type="module" src="msfish-charts.js" defer></script>
   </body>
