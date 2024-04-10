@@ -62,8 +62,9 @@ async function init() {
         }
     });
 
-    scheduleJob('*/43 * * * * *', async function() {
+    scheduleJob('*/1 * * * *', async function() {
         try {
+            await sleep(30000);
             await checkforupdates();
         } catch (e) {
             log('check for updates fail ' + e);
