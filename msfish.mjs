@@ -42,7 +42,7 @@ async function init() {
     }
     log('post pulldb')
     
-    await sleep(50000);
+    await sleep(90000);
     
     log('adding schedules');
 
