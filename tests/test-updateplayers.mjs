@@ -1,11 +1,5 @@
 import { updateplayers } from "../updateplayers.mjs";
-
-//import { schedule } from 'node-schedule';
-
 import schedule from 'node-schedule';
-
-
-
 import { parseArgs } from 'node:util';
 
 const args = parseArgs({
@@ -19,7 +13,7 @@ const args = parseArgs({
 
 if ( args.values.now ) {
     console.log('now update players');
-    updateplayers();
+    await updateplayers();
 }
 
 schedule.scheduleJob('26 11 * * *', async function() {

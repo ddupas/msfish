@@ -17,7 +17,7 @@ GROUP BY pid ORDER BY miliago</sql><sql name="pick updatable">  select name, pid
 --    miliago - lsmiliago as difference,
 --    miliago / 4 as updateinterval,
      miliago / 4  as nextupdatein
- from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 5700000
+ from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 7700770
  </sql><sql name="create view getnext ">drop view getnext;
 create view getnext as 
   
@@ -27,7 +27,7 @@ create view getnext as
 --    miliago - lsmiliago as difference,
 --    miliago / 4 as updateinterval,
      miliago / 4  as nextupdatein
- from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 5700000
+ from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 7700770
   
 limit 1</sql><sql name="SQL 12">select * from getnext</sql><sql name="create tables">CREATE TABLE &quot;players&quot; (
 	&quot;id&quot;	TEXT NOT NULL,
@@ -137,4 +137,4 @@ date&lt;&gt;maxd and date&lt;&gt;mind
 vacuum;
 </sql><sql name="clear medals">update snapshots set Medals = null;
 vacuum;
-</sql><current_tab id="2"/></tab_sql></sqlb_project>
+</sql><current_tab id="3"/></tab_sql></sqlb_project>
