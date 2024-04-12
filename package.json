@@ -35,6 +35,7 @@
     "http-server": "http-server -o -c-1 -p 8080",
     "npm-update": "npm update --save",
     "renderdotcom": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
+    "renderwithpm2": ". ./pm2.link.secret.sh && pm2 link $PM2LINKSECRET && pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "renderdotcomx": "npm run discord-bot & npm run msfish & npm run http-server"
   },
   "repository": {
