@@ -51,7 +51,7 @@ export async function updateplayers() {
 			const val = doc.evaluate(xpath, doc, null, 0, null);
 			let plist = val.iterateNext();
 
-			const db_updatep_rw = new sqlite3.Database('msfish.db',sqlite3.OPEN_READWRITE, (open_err) => {
+			const db_updatep_rw = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READWRITE, (open_err) => {
 				if (open_err) {
 					console.log(`ERR updateplayers open_err ${ JSON.stringify(open_err)}`);
 					reject(open_err);

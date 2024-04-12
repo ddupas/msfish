@@ -9,7 +9,7 @@ who is active and who is winning medals on Warbrokers.
 
 ## playerstatus query
 ```nu
-> 'select * from playerstatus' | sqlite3 msfish.db -markdown
+> 'select * from playerstatus' | sqlite3 public/msfish.db -markdown
 ```
 
 > ℹ️  Debuging node with Chrome DevTools requires running node with --inspect and

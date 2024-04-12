@@ -6,7 +6,7 @@ async function dosend(interact) {
 	let tosend = '';
 	let x = 0;
 	tosend = '```html\n';
-	const db_gp = new sqlite3.Database('msfish.db', sqlite3.OPEN_READONLY);
+	const db_gp = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
 	db_gp.each("SELECT * FROM players", (err, row) => {
 		console.log(row.id, row.name);
 		x++;

@@ -18,8 +18,8 @@ export async function pulldb() {
             log('git checkout -f ' + pushbranch);
             await promise_exec('chmod 600 id_ed25519');
             log('chmod 600 id_ed25519');
-            await promise_exec('chmod a+rw msfish.db');
-            log('chmod a+rw msfish.db');
+            await promise_exec('chmod a+rw public/msfish.db');
+            log('chmod a+rw public/msfish.db');
             try {
                 await promise_exec('git remote add gh git@github.com:ddupas/msfish.git');
                 log('remote add done');

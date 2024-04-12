@@ -13,7 +13,7 @@ select * from getnext `;
 
     
     const results = [];
-    const db_check_ro = new sqlite3.Database('msfish.db',sqlite3.OPEN_READONLY);
+    const db_check_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
     
     db_check_ro.get(sqlstmnt,[], async (err,result) => {
         if (err) {
@@ -115,7 +115,7 @@ async function addtodb(snap) {
 			}
 		});
 		const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
-		const db_add_rw = new sqlite3.Database('msfish.db', sqlite3.OPEN_READWRITE, (open_err) => {
+		const db_add_rw = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READWRITE, (open_err) => {
 			if (open_err) {
 				log(`ERR addtodb open_err ${ JSON.stringify(open_err)}`);
 				reject(snap);

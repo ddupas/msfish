@@ -15,7 +15,7 @@ const selectstmt =
 async function mtext() {
 	return new Promise(async (resolve, reject) => {
 		let tosend = ri('Daily Medals') + '\n```txt\n';
-		const db_m_ro = new sqlite3.Database('msfish.db',sqlite3.OPEN_READONLY);
+		const db_m_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
 		db_m_ro.each(selectstmt, (err,row) => {
 			if (row.Medals !== '') {
 				tosend += `${row.Name}\n${row.Medals}\n`;

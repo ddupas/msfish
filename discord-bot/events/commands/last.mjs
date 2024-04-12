@@ -29,7 +29,7 @@ async function dosend(interact) {
 		let tosend = '';
 		tosend = '```txt\n';
 		tosend += `Last ${days} days:\n`;
-		const db_last_ro = new sqlite3.Database('msfish.db',sqlite3.OPEN_READONLY);
+		const db_last_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
 
 		db_last_ro.each(selectstmt, (err,row) => {
 			tosend += row.name.toString().padEnd(20, '.');
