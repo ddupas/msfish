@@ -36,7 +36,7 @@ export async function pulldb() {
 export async function pushdb() {
     return new Promise( async (resolve, reject) => {
         try {
-            await promise_exec(`git ${minusc} add msfish.db`);
+            await promise_exec(`git ${minusc} add public/msfish.db`);
             //log(`git ${minusc} add msfish.db`);	
             const emore = re();
             await promise_exec(`git ${minusc} commit -m ${emore}`);
