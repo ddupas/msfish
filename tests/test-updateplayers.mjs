@@ -1,6 +1,12 @@
-const { updateplayers } = require('../updateplayers');
-const schedule = require('node-schedule');
-const  { parseArgs } = require('node:util');
+import { updateplayers } from "../updateplayers.mjs";
+
+//import { schedule } from 'node-schedule';
+
+import schedule from 'node-schedule';
+
+
+
+import { parseArgs } from 'node:util';
 
 const args = parseArgs({
   options: {

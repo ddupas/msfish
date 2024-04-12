@@ -165,12 +165,20 @@ window.showcharts = (id) => {
             styledMode: false,
             zooming: {
                 type: 'x',
-                singleTouch: true
+                singleTouch: true,
+                resetButton: {
+                    position: {
+                        align: 'left', // by default
+                        // verticalAlign: 'top', // by default
+                        
+                    }
+                },
             },
             panning: {
                 enabled: true,
                 type: 'x',
             },
+            
             panKey: 'shift'
 
         },
