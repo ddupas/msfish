@@ -10,8 +10,7 @@ function log(l) {
 export async function deletedup() {
 	try {
 		log(new Date().toLocaleString());
-		const { stdout, stderr } = await
-		await promise_exec('cat dd.sql | sqlite3 msfish.db');
+		const { stdout, stderr } = await promise_exec('echo "delete from snapshots where rowid in (select * from duplicates); vacuum;" | sqlite3 msfish.db');
 		log('successful delete duplicates');
 	}
 	catch (e) {
