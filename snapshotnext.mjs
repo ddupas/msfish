@@ -2,50 +2,77 @@ import { JSDOM } from 'jsdom';
 import sqlite3 from 'sqlite3';
 
 function log(l) {
-    console.log('snapshotnext: ' + l);
+	console.log('snapshotnext: ' + l);
+}
+
+export async function updateall() {
+	log('update all');
+	const sqlstmnt = `
+ 
+ select * from players`;
+
+	const results = [];
+	const db_check_ro = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
+
+	db_check_ro.all(sqlstmnt, [], async (err, rows) => {
+		log('all00');
+		if (err) {
+			log("[error]: " + err)
+			return;
+		}
+		log(rows);
+		rows.forEach(async (row) => {
+			log(row.id);
+			if (row.id) {
+				await snapshotone(row.id);
+				log(row.name);
+			}
+		});
+	});
+	db_check_ro.close();
 }
 
 export async function checkforupdates() {
-   // log('check for updates');
-    const sqlstmnt = `
+	// log('check for updates');
+	const sqlstmnt = `
 
 select * from getnext `;
 
-    
-    const results = [];
-    const db_check_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
-    
-    db_check_ro.get(sqlstmnt,[], async (err,result) => {
-        if (err) {
-            log("[error]: " + err)
-            return;
-        }
-	// log(JSON.stringify(result).Name);
-        if (result && result.pid ) {
-           await snapshotone(result.pid);
-        }
-    });
+
+	const results = [];
+	const db_check_ro = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
+
+	db_check_ro.get(sqlstmnt, [], async (err, result) => {
+		if (err) {
+			log("[error]: " + err)
+			return;
+		}
+		// log(JSON.stringify(result).Name);
+		if (result && result.pid) {
+			await snapshotone(result.pid);
+		}
+	});
 	db_check_ro.close();
 }
 
 async function getpage(snap) {
 	//log('getpage');
 	return new Promise(async (resolve, reject) => {
-		try { 
-			const res = await fetch ('https://stats.warbrokers.io/players/i/' + snap.pid);
+		try {
+			const res = await fetch('https://stats.warbrokers.io/players/i/' + snap.pid);
 			if (!res.ok) {
 				reject(snap);
 
 			}
 			const data = await res.text();
 			snap.page = data;
-        	//log('resolve getpage');
+			//log('resolve getpage');
 			resolve(snap);
 		} catch (e) {
 			reject(e);
 
 		};
-		
+
 	});
 }
 
@@ -64,8 +91,8 @@ const xpathfor = {
 
 function trimfixnode(v) {
 	let toret = '';
-	if (v._value.nodes[0].innerHTML) {toret = v._value.nodes[0].innerHTML;}
-	else {toret = v._value.nodes[0].textContent;}
+	if (v._value.nodes[0].innerHTML) { toret = v._value.nodes[0].innerHTML; }
+	else { toret = v._value.nodes[0].textContent; }
 	return toret.trim().replace(/\n/g, '').replace(/,/g, '');
 }
 
@@ -108,7 +135,7 @@ async function addtodb(snap) {
 	return new Promise(async (resolve, reject) => {
 		let istmt_fields = 'INSERT INTO snapshots (';
 		let istmt_values = 'VALUES (';
-		Object.keys(snap).forEach(function(key) {
+		Object.keys(snap).forEach(function (key) {
 			if (key !== 'page') {
 				istmt_fields += key + ',';
 				istmt_values += `"${snap[key]}",`;
@@ -117,15 +144,15 @@ async function addtodb(snap) {
 		const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
 		const db_add_rw = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READWRITE, (open_err) => {
 			if (open_err) {
-				log(`ERR addtodb open_err ${ JSON.stringify(open_err)}`);
+				log(`ERR addtodb open_err ${JSON.stringify(open_err)}`);
 				reject(snap);
 			}
 
-			const run_ret = db_add_rw.run(stmt,[],(run_err) => {
+			const run_ret = db_add_rw.run(stmt, [], (run_err) => {
 
 				if (run_err) {
-					log(`ERR addtodb run_err ${ JSON.stringify(run_err)}`);
-					reject(snap);					
+					log(`ERR addtodb run_err ${JSON.stringify(run_err)}`);
+					reject(snap);
 				}
 				db_add_rw.close();
 				//log('addtodb resolve reached')
@@ -137,15 +164,15 @@ async function addtodb(snap) {
 
 export async function snapshotone(pid) {
 	log('snapshotone');
-	return new Promise( async (resolve, reject) => {
-		getpage({pid})
-		.then(snap => parsepage(snap))
-		.then(snap => addtodb(snap))
-		.then(snap => log( JSON.stringify(snap)))
-		.catch(e =>{
-			log(JSON.stringify(e))
-			reject(e)
-		});
+	return new Promise(async (resolve, reject) => {
+		getpage({ pid })
+			.then(snap => parsepage(snap))
+			.then(snap => addtodb(snap))
+			.then(snap => log(JSON.stringify(snap)))
+			.catch(e => {
+				log(JSON.stringify(e))
+				reject(e)
+			});
 		resolve(this);
 	});
 }
