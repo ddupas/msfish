@@ -12,7 +12,7 @@ function log(l) {
 }
 
 export async function pulldb() {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await promise_exec('git checkout -f ' + pushbranch);
             log('git checkout -f ' + pushbranch);
@@ -23,7 +23,7 @@ export async function pulldb() {
             try {
                 await promise_exec('git remote add gh git@github.com:ddupas/msfish.git');
                 log('remote add done');
-            } catch (e) {}
+            } catch (e) { }
             await promise_exec(`git ${minusc} pull gh ${pushbranch}`);
             log(`git ${minusc} pull gh ${pushbranch}`);
             resolve(this);
@@ -34,7 +34,7 @@ export async function pulldb() {
 }
 
 export async function pushdb() {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await promise_exec(`git ${minusc} add public/msfish.db`);
             //log(`git ${minusc} add msfish.db`);	
@@ -50,3 +50,5 @@ export async function pushdb() {
         }
     });
 }
+
+export default pushdb;

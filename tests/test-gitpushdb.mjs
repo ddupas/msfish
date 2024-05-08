@@ -1,4 +1,4 @@
-const { pushdb } = require('../gitpushdb.mjs');
+import pushdb from '../gitpushdb.mjs';
 import { exit } from 'node:process';
 
 function log(l) {

@@ -26,7 +26,7 @@
     "discord-bot": "node --expose-gc discord-bot/manage-bot.mjs",
     "test-deletedup": "node tests/test-deletedup.mjs -n",
     "test-discordlogin": "node test-discordlogin.js",
-    "test-gitpushdb": "node test-gitpushdb.js",
+    "test-gitpushdb": "node tests/test-gitpushdb.mjs",
     "test-next": "node test-next.js",
     "test-snapshot": "node test-snapshot.js",
     "test-updateplayers": "node tests/test-updateplayers.mjs -n",
