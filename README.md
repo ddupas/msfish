@@ -29,8 +29,9 @@ who is active and who is winning medals on Warbrokers.
 	and sends the data to a public repository
 
 - ### Discord.js
-	Discord bot based on the tutorial almost straight copy. the config.json 
+	Discord bot based on the tutorial almost straight copy. the config.mjs
 	file is .gitignored so, the secret keys are not in the repo
+	see config.example.mjs
 
 - ### jsdom
 	A DOM document is a tree representation of a web page in memory

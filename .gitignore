@@ -1,5 +1,5 @@
 pm2.link.secret.sh
-config.json
+config.mjs
 id_ed25519
 known_hosts
 node_modules/
