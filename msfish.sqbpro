@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/home/dd/git/msfish/public/msfish.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2134"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="create playerstatus">drop view playerstatus;
+CREATE VIEW PLAYERSTATUS AS
+SELECT name, pid, date,           
+/* first time current kill count appeared - TODO: rename this column */
+STRFTIME('%s','now') * 1000 - MIN(date) AS miliago,
+/* last snapshot ago, last time a check was made */
+STRFTIME('%s','now') * 1000 - MAX(date) AS lsmiliago 
+FROM (
+SELECT * FROM (
+SELECT pid, MAX(date), name, kills
+FROM snapshots GROUP BY pid) AS a
+JOIN snapshots AS b ON
+a.pid = b.pid AND a.kills = b.kills)  
+GROUP BY pid ORDER BY miliago</sql><sql name="pick updatable">  select name, pid, date, miliago, lsmiliago,
+--     miliago as lastplayedago, 
+--     lsmiliago as lastcheckedago, 
+--    miliago - lsmiliago as difference,
+--    miliago / 4 as updateinterval,
+     miliago / 4  as nextupdatein
+ from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 7700770
+ </sql><sql name="create view getnext ">drop view getnext;
+create view getnext as 
+  
+  select name, pid, date, miliago, lsmiliago,
+--     miliago as lastplayedago, 
+--     lsmiliago as lastcheckedago, 
+--    miliago - lsmiliago as difference,
+--    miliago / 4 as updateinterval,
+     miliago / 4  as nextupdatein
+ from playerstatus where (miliago &gt;300000 and nextupdatein &lt; lsmiliago) or lsmiliago &gt; 7700770
+  
+limit 1</sql><sql name="SQL 12">select * from getnext</sql><sql name="create tables">CREATE TABLE &quot;players&quot; (
+	&quot;id&quot;	TEXT NOT NULL,
+	&quot;name&quot;	TEXT NOT NULL,
+	&quot;snapfreq&quot;	TEXT NOT NULL,
+	&quot;lastsnap&quot;	TEXT,
+	&quot;discord&quot;	TEXT,
+	&quot;status&quot;	TEXT,
+	PRIMARY KEY(&quot;id&quot;)
+);
+INSERT INTO players (id,name,snapfreq,lastsnap,discord,status)
+	VALUES 
+	('234','Milanzzz','6','now','432#234','active'),
+	('1234','azMilanzzz','6','now','432#234','active'),
+	('2234','zazMilanzzz','6','now','432#234','active'),
+	('3234','zzazMilanzzz','6','now','432#234','active')
+	ON CONFLICT(id) DO UPDATE SET
+	 name = excluded.name,
+	 snapfreq = excluded.snapfreq,
+	 lastsnap = excluded.lastsnap,
+	 discord = excluded.discord,
+	 status = excluded.status;
+	
+CREATE TABLE &quot;snapshots&quot; (
+&quot;pid&quot;	TEXT,
+&quot;date&quot;	TEXT,
+&quot;Name&quot;	TEXT,
+&quot;Kills&quot;	TEXT,
+&quot;Deaths&quot;	TEXT,
+&quot;wk&quot;	TEXT,
+&quot;vk&quot;	TEXT,
+&quot;dd&quot;	TEXT,
+&quot;xp&quot;	TEXT,
+&quot;hs&quot;	TEXT,
+&quot;brw&quot;	TEXT,
+&quot;cmw&quot;	TEXT,
+&quot;Medals&quot; TEXT
+);
+</sql><sql name="create view playerstatus">CREATE VIEW playerstatus AS
+SELECT name, pid,            
+STRFTIME('%s','now') * 1000 - MIN(date) AS miliago,
+STRFTIME('%s','now') * 1000 - MAX(date) AS lsmiliago
+FROM (
+SELECT * FROM (
+SELECT pid, MAX(date), name, kills
+FROM snapshots GROUP BY pid) AS a
+JOIN snapshots AS b ON
+a.pid = b.pid AND a.kills = b.kills)  
+GROUP BY pid ORDER BY miliago
+
+/*
+Step by step:
+
+1. Start at line 7
+
+SELECT pid, MAX(date), name, kills
+FROM snapshots GROUP BY pid) AS a
+
+grab the last snapshot date and the kills at that time for each player
+
+label the result a
+
+2. At line 9 we use result a, and join it with the entire snapshot set, but only
+take the snapshots with the same kill count because we are only interested
+in thier last kill count which we found in step 1,
+
+3. Lines 2,3,4,11
+
+with all the data snapshots for all the last killcounts, we can group them
+by player, showing the min and the max, which means, when was the first
+time that killcount showed up ( ie the player last played ) and when was
+the last time that killcount showed up ( ie the last time msfish checked)
+
+4. strftime - the values from step 3 subtracted from the current time to
+make them ago instead of dates
+
+5. order by miliago
+sort the players by when they last played
+
+
+*/
+</sql><sql name="delete duplicates">/*
+
+delete duplicate snapshots
+
+*/
+delete from snapshots where rowid in
+(select * from duplicates);
+vacuum;
+</sql><sql name="clear medals">update snapshots set Medals = null;
+vacuum;
+</sql><sql name="duplicates">drop view duplicates;
+create view duplicates as 
+select rowid from (
+select * from (
+
+select * from
+(select pid, kills, count(kills) as ck, max(date) as maxd ,min(date) as mind
+from snapshots
+group by pid,kills
+having
+ck&gt;2) as s1
+join
+(select date,pid,kills,rowid from snapshots)
+as s3
+on s1.pid=s3.pid and s1.kills=s3.kills
+)
+where
+date&lt;&gt;maxd and date&lt;&gt;mind
+)
+</sql><sql name="SQL 11">select * from duplicates</sql><current_tab id="8"/></tab_sql></sqlb_project>

@@ -1,0 +1,8 @@
+pm2.link.secret.sh
+config.mjs
+id_ed25519
+known_hosts
+node_modules/
+msfish.db-journal
+.pm2/
+*.tgz
