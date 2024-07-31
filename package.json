@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.15.3",
     "http-server": "^14.1.1",
-    "jsdom": "^24.0.0",
+    "jsdom": "^24.1.1",
     "node-emoji": "^2.1.3",
     "node-schedule": "^2.1.1",
-    "pm2": "^5.3.1",
+    "pm2": "^5.4.2",
     "sqlite3": "^5.1.7"
   },
   "name": "msfish",
@@ -22,21 +22,20 @@
     "#commands/*": "./discord-bot/events/commands/*.mjs"
   },
   "scripts": {
-    "deploy-commands": "node deploy-commands.js",
-    "discord-bot": "bun --expose-gc discord-bot/manage-bot.mjs",
+    "deploy-commands": "cd discord-bot; node deploy-commands.mjs",
+    "discord-bot": "node --expose-gc discord-bot/manage-bot.mjs",
     "test-deletedup": "node tests/test-deletedup.mjs -n",
-    "test-discordlogin": "node test-discordlogin.js",
     "test-gitpushdb": "node tests/test-gitpushdb.mjs",
     "test-next": "node tests/test-next.mjs",
     "test-snapshot": "node test-snapshot.js",
     "test-updateplayers": "node tests/test-updateplayers.mjs -n",
-    "msfish": "bun msfish.mjs",
+    "msfish": "node msfish.mjs",
     "pm2-nodaemon": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "http-server": "http-server -o -c-1 -p 8080",
     "npm-update": "npm update --save",
     "renderdotcomx": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "renderwithpm2": ". ./pm2.link.secret.sh && pm2 link $PM2LINKSECRET && pm2 --no-daemon start pm2/ecosystem.config.cjs",
-    "renderdotcom": "bun run discord-bot & bun run msfish & bun run http-server"
+    "renderdotcom": "npm run discord-bot & npm run msfish & npm run http-server"
   },
   "repository": {
     "type": "git",
