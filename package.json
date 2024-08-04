@@ -35,7 +35,7 @@
     "npm-update": "npm update --save",
     "renderdotcomx": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "renderwithpm2": ". ./pm2.link.secret.sh && pm2 link $PM2LINKSECRET && pm2 --no-daemon start pm2/ecosystem.config.cjs",
-    "renderdotcom": "npm run discord-bot & npm run msfish & npm run http-server"
+    "renderdotcom": "npm run deploy-commands && npm run discord-bot & npm run msfish & npm run http-server"
   },
   "repository": {
     "type": "git",
