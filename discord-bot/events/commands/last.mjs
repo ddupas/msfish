@@ -60,7 +60,7 @@ function create() {
 async function invoke(interaction) {
 	await interaction.deferReply();
 	const send = await dosend(interaction);
-	await interaction.editReply('‎ ' + ` ${ri('Msfish') + send}`);
+	await interaction.followUp('‎ ' + ` ${ri('Msfish') + send}`);
 }
 
 export { create, invoke };
