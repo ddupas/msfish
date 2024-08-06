@@ -35,9 +35,10 @@ function create() {
 }
 
 async function invoke(interaction) {
+	console.log("invoke /m");
 	await interaction.deferReply();
 	const dmtext = await mtext();
-	await interaction.editReply(dmtext);
+	await interaction.followUp(dmtext);
 }
 
 export { create, invoke };
