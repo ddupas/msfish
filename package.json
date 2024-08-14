@@ -22,20 +22,20 @@
     "#commands/*": "./discord-bot/events/commands/*.mjs"
   },
   "scripts": {
-    "deploy-commands": "cd discord-bot; node deploy-commands.mjs",
-    "discord-bot": "node --expose-gc discord-bot/manage-bot.mjs",
-    "test-deletedup": "node tests/test-deletedup.mjs -n",
-    "test-gitpushdb": "node tests/test-gitpushdb.mjs",
-    "test-next": "node tests/test-next.mjs",
-    "test-snapshot": "node test-snapshot.js",
-    "test-updateplayers": "node tests/test-updateplayers.mjs -n",
-    "msfish": "node msfish.mjs",
+    "deploy-commands": "cd discord-bot; bun deploy-commands.mjs",
+    "discord-bot": "bun --expose-gc discord-bot/manage-bot.mjs",
+    "test-deletedup": "bun tests/test-deletedup.mjs -n",
+    "test-gitpushdb": "bun tests/test-gitpushdb.mjs",
+    "test-next": "bun tests/test-next.mjs",
+    "test-snapshot": "bun test-snapshot.js",
+    "test-updateplayers": "bun tests/test-updateplayers.mjs -n",
+    "msfish": "bun msfish.mjs",
     "pm2-nodaemon": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
-    "http-server": "http-server -o -c-1 -p 8080",
-    "npm-update": "npm update --save",
+    "http-server": "http-server -o -c-1 -p 80",
+    "bun-update": "bun update --save",
     "renderdotcomx": "pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "renderwithpm2": ". ./pm2.link.secret.sh && pm2 link $PM2LINKSECRET && pm2 --no-daemon start pm2/ecosystem.config.cjs",
-    "renderdotcom": "npm run deploy-commands && npm run discord-bot & npm run msfish & npm run http-server"
+    "renderdotcom": "bun run deploy-commands && bun run discord-bot & bun run msfish & bun run http-server"
   },
   "repository": {
     "type": "git",
