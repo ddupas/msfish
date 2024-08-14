@@ -1,26 +1,35 @@
 {
+  "name": "msfish",
+  "version": "1.0.0",
+  "author": "Darrell Dupas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddupas/msfish.git"
+  },
+  "main": "index.js",
   "dependencies": {
     "discord.js": "^14.15.3",
     "http-server": "^14.1.1",
     "jsdom": "^24.1.1",
     "node-emoji": "^2.1.3",
     "node-schedule": "^2.1.1",
-    "pm2": "^5.4.2",
     "sqlite3": "^5.1.7"
   },
-  "name": "msfish",
-  "description": "msfish",
-  "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "js-beautify": "^1.15.1"
+  "bugs": {
+    "url": "https://github.com/ddupas/msfish/issues"
   },
-  "type": "module",
+  "description": "msfish",
+  "homepage": "https://github.com/ddupas/msfish#readme",
   "imports": {
     "#events/*": "./discord-bot/events/*",
     "#commands/*": "./discord-bot/events/commands/*.mjs"
   },
+  "keywords": [
+    "node",
+    "discord.js",
+    "sqlite"
+  ],
+  "license": "ISC",
   "scripts": {
     "deploy-commands": "cd discord-bot; bun deploy-commands.mjs",
     "discord-bot": "bun --expose-gc discord-bot/manage-bot.mjs",
@@ -37,19 +46,5 @@
     "renderwithpm2": ". ./pm2.link.secret.sh && pm2 link $PM2LINKSECRET && pm2 --no-daemon start pm2/ecosystem.config.cjs",
     "renderdotcom": "bun run deploy-commands && bun run discord-bot & bun run msfish & bun run http-server"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ddupas/msfish.git"
-  },
-  "keywords": [
-    "node",
-    "discord.js",
-    "sqlite"
-  ],
-  "author": "Darrell Dupas",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ddupas/msfish/issues"
-  },
-  "homepage": "https://github.com/ddupas/msfish#readme"
+  "type": "module"
 }
