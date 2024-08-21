@@ -58,9 +58,13 @@ function create() {
 }
 
 async function invoke(interaction) {
-	await interaction.deferReply();
-	const send = await dosend(interaction);
-	await interaction.followUp('‎ ' + ` ${ri('Msfish') + send}`);
+	try {
+		await interaction.deferReply();
+		const send = await dosend(interaction);
+		await interaction.followUp('‎ ' + ` ${ri('Msfish') + send}`);
+	} catch (e) {
+		console.log('last interaction catch ')
+	}
 }
 
 export { create, invoke };

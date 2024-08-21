@@ -27,9 +27,13 @@ function create() {
 }
 
 async function invoke(interaction) {
-	await interaction.deferReply();
-	const send = await dosend(interaction);
-	await interaction.editReply('‎ ' + ` ${ri('Msfish') + send}`);
+	try {
+		await interaction.deferReply();
+		const send = await dosend(interaction);
+		await interaction.editReply('‎ ' + ` ${ri('Msfish') + send}`);
+	} catch (e) {
+		console.log('discord interaction gp catch')
+	}
 
 }
 
