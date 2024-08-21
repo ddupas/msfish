@@ -39,7 +39,7 @@
     "test-snapshot": "node test-snapshot.js",
     "test-updateplayers": "node tests/test-updateplayers.mjs -n",
     "msfish": "node msfish.mjs",
-    "http-server": "http-server -o -c-1 -p 80",
+    "http-server": "http-server -o -c-1 -p 8080",
     "npm-update": "npm update --save",
     "renderdotcom": "npm run deploy-commands && npm run discord-bot & npm run msfish & npm run http-server"
   },
