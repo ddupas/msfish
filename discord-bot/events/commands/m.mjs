@@ -40,7 +40,7 @@ try {
 	await interaction.deferReply();
 	const dmtext = await mtext();
 	interaction.followUp(dmtext);
-} catch ( Error e) {
+} catch (e) {
 	console.log('caught exception in invoke /m');
 }
 	
