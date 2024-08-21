@@ -36,9 +36,14 @@ function create() {
 
 async function invoke(interaction) {
 	console.log("invoke /m");
+try {
 	await interaction.deferReply();
 	const dmtext = await mtext();
-	await interaction.followUp(dmtext);
+	interaction.followUp(dmtext);
+} catch ( Error e) {
+	console.log('caught exception in invoke /m');
+}
+	
 }
 
 export { create, invoke };
