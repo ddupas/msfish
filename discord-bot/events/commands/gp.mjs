@@ -30,7 +30,7 @@ async function invoke(interaction) {
 	try {
 		await interaction.deferReply();
 		const send = await dosend(interaction);
-		await interaction.editReply('‎ ' + ` ${ri('Msfish') + send}`);
+		await interaction.followUp('‎ ' + ` ${ri('Msfish') + send}`);
 	} catch (e) {
 		console.log('discord interaction gp catch')
 	}
