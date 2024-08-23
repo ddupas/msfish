@@ -75,7 +75,7 @@ window.listp = () => {
             if (this.counter == 1) {
                 window.showchartid = row[1];
             }
-            innerhtml += `<a class="panel-block" onclick="window.showcharts('${row[1]}');window.listp();">
+            innerhtml += `<a class="panel-block" onclick="window.winscharts('${row[1]}');window.showcharts('${row[1]}');window.listp();">
 				<label><div class="block"><div><span class="is-size-6">${row[0]}</span></div>
 				<span class="is-size-7">
               🎮 ${msFn(row[2])}
@@ -132,6 +132,92 @@ window.showlastsquad = async () => {
     });
     innerhtml += `</table></div>`;
     ele.innerHTML = innerhtml;
+};
+
+/*
+function: showcharts
+use the id of a player to select all their snapshots, display kills and
+k/d over the entire period
+*/
+window.winscharts = (id) => {
+    if (id == undefined) {
+        id = window.showchartid;
+    }
+    const db = window.db;
+    const chartdata = [];
+    const chartdata2 = [];
+    let name = 'Spongebob';
+    const query = `select date, cmw, brw, name from snapshots where pid='${id}'`;
+    db.exec({
+        sql: query,
+        callback: function(r) {
+            name = r[3];
+            chartdata.push([parseInt(r[0]), parseInt(r[1])]);
+            chartdata2.push([parseInt(r[0]), parseInt(r[2])]);
+        }
+    });
+
+    Highcharts.chart('winschart', {
+        chart: {
+            type: 'line',
+            height: `${window.innerHeight / 2 - 50}px`,
+            backgroundColor: 'rgba(255,255,255,0)',
+            styledMode: false,
+            zooming: {
+                type: 'x',
+                singleTouch: true,
+                resetButton: {
+                    position: {
+                        align: 'left', // by default
+                        // verticalAlign: 'top', // by default
+                        
+                    }
+                },
+            },
+            panning: {
+                enabled: true,
+                type: 'x',
+            },
+            
+            panKey: 'shift'
+
+        },
+        legend: { enabled: false, },
+        title: { text: name },
+        xAxis: {
+            type: 'datetime',
+            labels: {
+                formatter: function() {
+                    const dd = new Date(this.value);
+                    return dd.toLocaleDateString();
+                },
+            }
+        },
+        yAxis: [
+            { title: { enabled: false } },
+            {
+                title: { enabled: false },
+                opposite: true,
+            }],
+        series: [{
+            yAxis: 0,
+            name: 'cw',
+            data: chartdata,
+            color: '#9d00ff'
+
+        }, {
+            yAxis: 1,
+            name: 'brw',
+            data: chartdata2,
+        }],
+        plotOptions: {
+            series: {
+                color: '#0046aa',
+                animation: false
+            }
+        },
+    }
+    );
 };
 
 /*
@@ -234,6 +320,7 @@ const update_msfish = async function() {
     window.listp();
     window.showlastsquad();
     window.showcharts();
+    window.winscharts();
     window.getlastcommit();
     log('keep msfish alive ' + new Date() );
     setTimeout(update_msfish, (60000 + getRandomInt(30000)+ getRandomInt(30000)) );   
