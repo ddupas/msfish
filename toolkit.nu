@@ -13,3 +13,8 @@ export-env {
 #export-env { 
 #$env.GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_rsa.projectx -o CertificateFile=~/.ssh/id_rsa.projectx-cert.pub"  
 #}
+
+# load node
+def main [ ] {
+asdf local nodejs latest
+}

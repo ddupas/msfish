@@ -18,7 +18,7 @@ export async function updateall() {
 	const arr_obj = stmt.all();
 	arr_obj.foreach( (row) => {
 
-	rows.forEach( (row) => {
+	rows.forEach( async (row) => {
 			log(row.id);
 			if (row.id) {
 				await snapshotone(row.id);
@@ -31,22 +31,14 @@ export async function updateall() {
 
 export async function checkforupdates() {
 	// log('check for updates');
-	const sqlstmnt = `
-
-select * from getnext `;
-
-
-	const results = [];
+	const sqlstmnt = ` select * from getnext `;
 	const db_check_ro = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
 	const stmt = db_check_ro.prepare("SELECT * FROM players");
-	const obj = stmt.get();
-
 	const result = stmt.get();
 		// log(JSON.stringify(result).Name);
-		if (result && result.pid) {
+	if (result && result.pid) {
 			await snapshotone(result.pid);
-		}
-	});
+	}
 	db_check_ro.close();
 }
 
