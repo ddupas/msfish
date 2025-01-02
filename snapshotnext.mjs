@@ -30,11 +30,12 @@ export async function checkforupdates() {
 	// log('check for updates');
 	const sqlstmnt = ` select * from getnext `;
 	const db_check_ro = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
-	const stmt = db_check_ro.prepare("SELECT * FROM players");
+	const stmt = db_check_ro.prepare(sqlstmnt);
 	const result = stmt.get();
-		// log(JSON.stringify(result).Name);
+	log('check for updates get next: ' + JSON.stringify(result));
 	if (result && result.pid) {
 			await snapshotone(result.pid);
+			log('check for update success');
 	}
 	db_check_ro.close();
 }

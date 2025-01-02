@@ -33,15 +33,15 @@ log('init done');
 
 async function init() {
 
-    log('pre pulldb');
-    try {
-        await pulldb();
-    } catch (e) {
-        log(e);
-    }
-    log('post pulldb')
+    // log('pre pulldb');
+    // try {
+    //     await pulldb();
+    // } catch (e) {
+    //     log(e);
+    // }
+    // log('post pulldb')
 
-    await sleep(90000);
+    // await sleep(90000);
 
     log('adding schedules');
 

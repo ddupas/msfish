@@ -20,6 +20,7 @@ if (args.values.now) {
 
 schedule.scheduleJob('*/20 * * * * *', async function () {
   try {
+    console.log('try test-next: ' + Date.now() );
     await checkforupdates();
   }
   catch (e) {
