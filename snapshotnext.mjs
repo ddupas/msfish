@@ -125,12 +125,13 @@ async function addtodb(snap) {
 		Object.keys(snap).forEach(function (key) {
 			if (key !== 'page') {
 				istmt_fields += key + ',';
-				istmt_values += `"${snap[key]}",`;
+				istmt_values += `'${snap[key]}',`;
 			}
 		});
 		const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
 
 		const db_add_rw = new DatabaseSync('public/msfish.db', { readOnly:false, open:true } );
+		console.log(stmt);
 		const exec_ret = db_add_rw.exec(stmt);
 
 		db_add_rw.close();
