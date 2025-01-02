@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { DatabaseSync } from 'node:sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 
 function log(l) {
 	console.log('snapshotnext: ' + l);

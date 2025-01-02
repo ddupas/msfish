@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { ri } from '../../../emoji.mjs'
-import { DatabaseSync } from 'node:sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 
 async function dosend(interact) {
 	let tosend = '';

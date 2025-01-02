@@ -1,4 +1,4 @@
-const { snapshotone } = require('../snapshotnext');
+import { snapshotone } from '../snapshotnext.mjs';
 
 // Lemon
 //snapshotone('5f1cf600fe3c7a6b2779e6cf');
