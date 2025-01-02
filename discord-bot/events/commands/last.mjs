@@ -10,7 +10,7 @@ async function dosend(interact) {
 		}
 		const selectstmt =
 		`SELECT name, rkills-kills as kills , rdeaths - deaths as deaths,
-		printf("%.2f", (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
+		printf('%.2f', (rkills*1.0-kills*1.0)/(rdeaths *1.0 - Deaths *1.0 )) as kd,
 		rcmw - cmw as cmw , rbrw - brw as brw
 		FROM
 		(SELECT pid, max(date) As recentdate
@@ -63,7 +63,7 @@ async function invoke(interaction) {
 		const send = await dosend(interaction);
 		await interaction.followUp('‎ ' + ` ${ri('Msfish') + send}`);
 	} catch (e) {
-		console.log('last interaction catch ')
+		console.log('last interaction catch ' + e);
 	}
 }
 

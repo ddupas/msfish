@@ -9,14 +9,14 @@ const selectstmt =
         FROM snapshots
         GROUP BY pid )
     
-    where  not  ( medals is  null or medals  =  "")`;
+    where  not  ( medals is  null or medals  =  '')`;
 
 
 async function mtext() {
 	return new Promise(async (resolve, reject) => {
 		let tosend = ri('Daily Medals') + '\n```txt\n';
 	const db_m_ro = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
-	const stmt = db_m_ro.prepare("SELECT * FROM players");
+	const stmt = db_m_ro.prepare(selectstmt);
 	const arr_obj = stmt.all();
 
 		arr_obj.forEach( (row) => {
