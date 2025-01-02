@@ -16,16 +16,13 @@ export async function updateall() {
 
 	const stmt = db_check_ro.prepare("SELECT * FROM players");
 	const arr_obj = stmt.all();
-	arr_obj.foreach( (row) => {
-
-	rows.forEach( async (row) => {
+	arr_obj.forEach( async  (row) => {
 			log(row.id);
 			if (row.id) {
 				await snapshotone(row.id);
 				log(row.name);
 			}
 		});
-	});
 	db_check_ro.close();
 }
 

@@ -34,7 +34,7 @@
     "discord-bot": "node  --experimental-sqlite --expose-gc discord-bot/manage-bot.mjs",
     "test-deletedup": "node --experimental-sqlite tests/test-deletedup.mjs -n",
     "test-gitpushdb": "node  --experimental-sqlite tests/test-gitpushdb.mjs",
-    "test-next": "node  --experimental-sqlite tests/test-next.mjs",
+    "test-next": "node  --experimental-sqlite tests/test-next.mjs -n",
     "test-snapshot": "node  --experimental-sqlite tests/test-snapshot.mjs",
     "test-updateplayers": "node  --experimental-sqlite tests/test-updateplayers.mjs -n",
     "msfish": "node  --experimental-sqlite msfish.mjs",

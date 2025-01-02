@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import { DatabaseSync } from 'node:sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 
 const rm_statement = 'DELETE FROM players';
 const rm2_statement = 'DELETE from snapshots where pid not in (select id from players)';
@@ -54,7 +54,7 @@ export async function updateplayers() {
 			while (plist) {
 				const id = plist.toString().split('/').slice(-1)[0];
 				const name = plist.textContent.trim().replace(/\n/g, '');
-				stmt.run(id, name, '6', new Date(), null, 'active');
+				stmt.run(id, name, '6', Date.now(), 0, 'active');
 				plist = val.iterateNext();
 			}
 
