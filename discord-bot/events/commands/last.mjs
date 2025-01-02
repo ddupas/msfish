@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { ri } from '../../../emoji.mjs'
-import sqlite3 from 'sqlite3';
+import { DatabaseSync } from 'node:sqlite3';
 
 async function dosend(interact) {
   return new Promise((resolve,reject) => {
@@ -29,21 +29,21 @@ async function dosend(interact) {
 		let tosend = '';
 		tosend = '```txt\n';
 		tosend += `Last ${days} days:\n`;
-		const db_last_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
+		const db_last_ro = new DatabaseSync('public/msfish.db',{ open:true, readOnly:true });
+		const stmt = db_last_ro.prepare(selectstmt);
+		const arr_obj = stmt.all();
 
-		db_last_ro.each(selectstmt, (err,row) => {
+		arr_obj.forEach( (row) => {
 			tosend += row.name.toString().padEnd(20, '.');
 			tosend += row.kills.toString().padStart(5, ' ');
 			tosend += row.deaths.toString().padStart(5, ' ');
 			tosend += row.kd.toString().padStart(7, ' ');
 			tosend += row.cmw.toString().padStart(5, ' ');
 			tosend += row.brw.toString().padStart(5, ' ') + '\n';
-		}, () => {
-			//interact.channel.send(`${tosend}\n\`\`\`\n`);
-			db_last_ro.close();
-			resolve(`${tosend}\n\`\`\`\n`);
 		});
-	});
+		
+		db_last_ro.close();
+		resolve(`${tosend}\n\`\`\`\n`);
 
 }
 

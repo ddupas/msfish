@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { ri } from '../../../emoji.mjs'
-import sqlite3 from 'sqlite3';
+import { DatabaseSync } from 'node:sqlite3';
 
 const selectstmt =
     `select * from 
@@ -15,16 +15,19 @@ const selectstmt =
 async function mtext() {
 	return new Promise(async (resolve, reject) => {
 		let tosend = ri('Daily Medals') + '\n```txt\n';
-		const db_m_ro = new sqlite3.Database('public/msfish.db',sqlite3.OPEN_READONLY);
-		db_m_ro.each(selectstmt, (err,row) => {
+	const db_m_ro = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
+	const stmt = db_m_ro.prepare("SELECT * FROM players");
+	const arr_obj = stmt.all();
+
+		arr_obj.forEach( (row) => {
 			if (row.Medals !== '') {
 				tosend += `${row.Name}\n${row.Medals}\n`;
 			}
-		},()=>{
-				db_m_ro.close();
-				resolve(`${tosend}\n\`\`\`\n`);
 		});
-	});
+	db_m_ro.close();
+	resolve(`${tosend}\n\`\`\`\n`);
+});
+
 }
 
 function create() {

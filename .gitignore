@@ -6,3 +6,4 @@ node_modules/
 msfish.db-journal
 .pm2/
 *.tgz
+ssh-env.nu.tool-versionsssh-env.nu.tool-versionstoolkit.nu

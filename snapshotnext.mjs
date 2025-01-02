@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom';
-import sqlite3 from 'sqlite3';
+import { DatabaseSync } from 'node:sqlite3';
 
 function log(l) {
 	console.log('snapshotnext: ' + l);
@@ -12,16 +12,13 @@ export async function updateall() {
  select * from players`;
 
 	const results = [];
-	const db_check_ro = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
+	const db_check_ro = new DatabaseSync('public/msfish.db',  {open:true, readOnly:true});
 
-	db_check_ro.all(sqlstmnt, [], async (err, rows) => {
-		log('all00');
-		if (err) {
-			log("[error]: " + err)
-			return;
-		}
-		log(rows);
-		rows.forEach(async (row) => {
+	const stmt = db_check_ro.prepare("SELECT * FROM players");
+	const arr_obj = stmt.all();
+	arr_obj.foreach( (row) => {
+
+	rows.forEach( (row) => {
 			log(row.id);
 			if (row.id) {
 				await snapshotone(row.id);
@@ -40,13 +37,11 @@ select * from getnext `;
 
 
 	const results = [];
-	const db_check_ro = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
+	const db_check_ro = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
+	const stmt = db_check_ro.prepare("SELECT * FROM players");
+	const obj = stmt.get();
 
-	db_check_ro.get(sqlstmnt, [], async (err, result) => {
-		if (err) {
-			log("[error]: " + err)
-			return;
-		}
+	const result = stmt.get();
 		// log(JSON.stringify(result).Name);
 		if (result && result.pid) {
 			await snapshotone(result.pid);
@@ -142,25 +137,16 @@ async function addtodb(snap) {
 			}
 		});
 		const stmt = istmt_fields.slice(0, -1) + ') ' + istmt_values.slice(0, -1) + ');';
-		const db_add_rw = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READWRITE, (open_err) => {
-			if (open_err) {
-				log(`ERR addtodb open_err ${JSON.stringify(open_err)}`);
-				reject(snap);
-			}
 
-			const run_ret = db_add_rw.run(stmt, [], (run_err) => {
+		const db_add_rw = new DatabaseSync('public/msfish.db', { readOnly:false, open:true } );
+		const exec_ret = db_add_rw.exec(stmt);
 
-				if (run_err) {
-					log(`ERR addtodb run_err ${JSON.stringify(run_err)}`);
-					reject(snap);
-				}
-				db_add_rw.close();
-				//log('addtodb resolve reached')
-				resolve(snap);
+		db_add_rw.close();
+		//log('addtodb resolve reached')
+		resolve(snap);
 			});
-		});
-	});
-}
+	}
+
 
 export async function snapshotone(pid) {
 	log('snapshotone');

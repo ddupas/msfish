@@ -1,21 +1,22 @@
 import { SlashCommandBuilder } from 'discord.js';
 import { ri } from '../../../emoji.mjs'
-import sqlite3 from 'sqlite3';
+import { DatabaseSync } from 'node:sqlite3';
 
 async function dosend(interact) {
 	let tosend = '';
 	let x = 0;
 	tosend = '```html\n';
-	const db_gp = new sqlite3.Database('public/msfish.db', sqlite3.OPEN_READONLY);
-	db_gp.each("SELECT * FROM players", (err, row) => {
+	const db_gp = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
+	const stmt = db_gp.prepare("SELECT * FROM players");
+	const arr_obj = stmt.all();
+	arr_obj.foreach( (row) => {
 		console.log(row.id, row.name);
 		x++;
 		let xstr = x.toString().padStart(3, ' ');
 		tosend +=`${xstr} ${row.name}\nhttps://stats.warbrokers.io/players/i/${row.id}\n`;
-    }, () => {
-			db_gp.close();
-			interact.channel.send(`${tosend}\n\`\`\`\n`);
-	});
+  }
+	interact.channel.send(`${tosend}\n\`\`\`\n`);
+	db_gp.close();
 }
 
 // Creates an Object in JSON with the data required by Discord's API to create a SlashCommand
