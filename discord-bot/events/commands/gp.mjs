@@ -9,12 +9,12 @@ async function dosend(interact) {
 	const db_gp = new DatabaseSync('public/msfish.db', {open:true, readOnly:true});
 	const stmt = db_gp.prepare("SELECT * FROM players");
 	const arr_obj = stmt.all();
-	arr_obj.foreach( (row) => {
+	arr_obj.forEach( (row) => {
 		console.log(row.id, row.name);
 		x++;
 		let xstr = x.toString().padStart(3, ' ');
 		tosend +=`${xstr} ${row.name}\nhttps://stats.warbrokers.io/players/i/${row.id}\n`;
-  }
+  });
 	interact.channel.send(`${tosend}\n\`\`\`\n`);
 	db_gp.close();
 }
