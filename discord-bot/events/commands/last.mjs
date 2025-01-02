@@ -44,7 +44,7 @@ async function dosend(interact) {
 		
 		db_last_ro.close();
 		resolve(`${tosend}\n\`\`\`\n`);
-
+});
 }
 
 function create() {
