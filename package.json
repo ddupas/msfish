@@ -8,10 +8,10 @@
   },
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^14.15.3",
+    "discord.js": "^14.17.2",
     "http-server": "^14.1.1",
-    "jsdom": "^24.1.1",
-    "node-emoji": "^2.1.3",
+    "jsdom": "^25.0.1",
+    "node-emoji": "^2.2.0",
     "node-schedule": "^2.1.1"
   },
   "bugs": {
@@ -38,7 +38,7 @@
     "test-snapshot": "node  --experimental-sqlite tests/test-snapshot.mjs",
     "test-updateplayers": "node  --experimental-sqlite tests/test-updateplayers.mjs -n",
     "msfish": "node  --experimental-sqlite msfish.mjs",
-    "http-server": "http-server -o -c-1 -p 8080 -- Cross-Origin-Embedder-Policy: require-corp -- Cross-Origin-Opener-Policy: same-origin",
+    "http-server": "http-server -o -c-1 -p 8080 -H 'Cross-Origin-Embedder-Policy: require-corp' -H 'Cross-Origin-Opener-Policy: same-origin'",
     "npm-update": "npm update --save",
     "renderdotcom": "npm run deploy-commands && npm run discord-bot & npm run msfish & npm run http-server"
   },
