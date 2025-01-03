@@ -311,6 +311,7 @@ window.getlastcommit = async function() {
   const response = await fetch ('https://api.github.com/users/ddupas/events/public');
   const data = await response.json();
     const msg = data[0].payload.commits[0].message;
+    if (window.emojis[msg]) 
   document.querySelector('#lastcommit').textContent = msg + " " + window.emojis[msg].name; 
 };
 
